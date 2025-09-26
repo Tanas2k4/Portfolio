@@ -43,6 +43,7 @@ const Tech = () => {
           initial="hidden"
           whileInView="visible"
           transition={{ duration: 0.5 }}
+          className="dotnet-container"
         >
           <SiDotnet className="tech-icon dotnet" />
         </motion.div>
