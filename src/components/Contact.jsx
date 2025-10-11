@@ -10,11 +10,11 @@ const Contact = () => {
       </h1>
 
       <p className="text-gray-300 text-lg leading-8 md:text-xl">
-        Want to chat? sent me an E-mail through this button and i'll  respond
+        If you want to contact, send me an E-mail through this button and i'll  respond
         Whenever I can 
       </p>
 
-      <a href="mailto:t.ttan25204@gmail.com" className="text-nowrap rounded-lg  border border-white bg-black px-5 
+      <a href="mailto:tt.tan25204@gmail.com" className="text-nowrap rounded-lg  border border-white bg-black px-5 
       py-3 text-lg font-bold text-white  transition-all duration-200
       hover:-translate-y-2 hover:shadow-xl hover:shadow-gray-600">
         Contact Me

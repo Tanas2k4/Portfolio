@@ -16,21 +16,19 @@ const Intro = () => {
           className="flex flex-col w-full"
         >
           <h1 className="text-center sm:text-left pl-4 md:pl-6 text-3xl sm:text-4xl lg:text-5xl font-heading font-normal text-white leading-[1.1]">
-            HELLO, I'M
+            Hello, I'm
           </h1>
           <h2 className="text-center text-6xl sm:text-7xl lg:text-8xl font-heading font-extrabold bg-gradient-to-l from-white to-gray-400 bg-clip-text text-transparent leading-[1.1] mt-1">
             TRAN TRONG TAN
           </h2>
         </motion.div>
 
-        {/* Info Section */}
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="flex flex-col items-center text-center"
         >
-          {/* ✅ nhỏ hơn khi màn hình nhỏ, lớn hơn khi sm trở lên */}
           <p className="text-base sm:text-xl lg:text-2xl font-body font-light text-white mt-0">
             2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)
           </p>

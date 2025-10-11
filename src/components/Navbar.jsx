@@ -41,11 +41,15 @@ const Navbar = () => {
       </ul>
 
       <ul className="hidden md:flex gap-5">
-        <li className="social-link">
-          <BsFacebook size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+        <li className="social-link" >
+          <a href="https://www.facebook.com/tran.tan.677008/" target="_blank" rel="noopener noreferrer">
+            <BsFacebook size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+          </a>
         </li>
         <li className="social-link">
-          <BsLinkedin size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+          <a href="https://www.linkedin.com/in/t%E1%BA%A5n-tr%E1%BA%A7n-78b8b5379/" target="_blank" rel="noopener noreferrer">
+            <BsLinkedin size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+          </a>
         </li>
         
       </ul>
@@ -91,10 +95,14 @@ const Navbar = () => {
 
           <ul className="flex flex-wrap gap-5">
             <li className="mobile-social-link">
-              <BsFacebook size={20} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+              <a href="https://www.facebook.com/tran.tan.677008/">
+                <BsFacebook size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+              </a>
             </li>
             <li className="mobile-social-link">
-              <BsLinkedin size={20} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+              <a href="https://www.linkedin.com/in/t%E1%BA%A5n-tr%E1%BA%A7n-78b8b5379/" target="_blank" rel="noopener noreferrer">
+                <BsLinkedin size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+              </a>
             </li>
           </ul>
         </div>

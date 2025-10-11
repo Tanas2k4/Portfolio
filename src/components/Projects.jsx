@@ -4,20 +4,6 @@ import { BiLinkExternal } from "react-icons/bi";
 
 const projectsData = [
   {
-    image: "/public/zein-ide.png",
-    title: "Zein IDE",
-    description: "for student learn code",
-    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "#",
-  },
-  {
-    image: "/public/2.png",
-    title: "HUTECH IDE",
-    description: "for student learn code",
-    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "#",
-  },
-  {
     image: "/public/zein-teamplanner.png",
     title: "Zein Team Planner",
     description: "for student team work",
@@ -30,12 +16,27 @@ const projectsData = [
     link: "#",
   },
   {
-    image: "/public/3.png",
-    title: "Zein PicSocial",
-    description: "for photographers",
-    technologies: ["ASP.Net Core", "Entity Framework", "ReactTS", "SQL Server"],
+    image: "/public/zein-ide.png",
+    title: "Zein IDE",
+    description: "for student learn code",
+    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
     link: "#",
   },
+  {
+    image: "/public/hutech-ide.png",
+    title: "HUTECH IDE",
+    description: "for student learn code",
+    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
+    link: "#",
+  },
+  
+  // {
+  //   image: "/public/3.png",
+  //   title: "Zein PicSocial",
+  //   description: "for photographers",
+  //   technologies: ["ASP.Net Core", "Entity Framework", "ReactTS", "SQL Server"],
+  //   link: "#",
+  // },
 ];
 
 const ScrollReveal = ({ children }) => {
