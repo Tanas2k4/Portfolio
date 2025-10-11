@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Tech from "./components/Tech";
 import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
@@ -6,38 +8,46 @@ import Intro from "./components/Intro";
 import ZeinTeamPlanner from "./pages/ZeinTeamPlanner";
 import ZeinIDE from "./pages/ZeinIDE";
 import HutechIDE from "./pages/HutechIDE";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="fixed -z-10 min-h-screen w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
       <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
-              <Intro />
-              <Tech />
-              <Projects />
-              <Contact />
-            </main>
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
-              <Intro />
-              <Tech />
-              <Projects />
-              <Contact />
-            </main>
-          }
-        />
+        <Route path="/" element={
+          <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
+            <Intro />
+            <Tech />
+            <Projects />
+            <Contact />
+            <Footer />
+          </main>
+        } />
+        <Route path="/home" element={
+          <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
+            <Intro />
+            <Tech />
+            <Projects />
+            <Contact />
+            <Footer />
+          </main>
+        } />
         <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
         <Route path="/home/zein-ide" element={<ZeinIDE />} />
-        <Route path="/home/hutech-ide" element={<HutechIDE />} />
+        <Route path="/home/hutech-ide" element={<HutechIDE /> } />
       </Routes>
     </Router>
   );
