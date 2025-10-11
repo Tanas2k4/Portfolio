@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BiLinkExternal } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const projectsData = [
   {
@@ -13,30 +14,22 @@ const projectsData = [
       "Bootstrap 5",
       "SQL Server",
     ],
-    link: "#",
+    link: "/home/zein-teamplanner",
   },
   {
     image: "/public/zein-ide.png",
     title: "Zein IDE",
     description: "for student learn code",
     technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "#",
+    link: "/home/zein-ide",
   },
   {
     image: "/public/hutech-ide.png",
     title: "HUTECH IDE",
     description: "for student learn code",
     technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "#",
+    link: "/home/hutech-ide",
   },
-  
-  // {
-  //   image: "/public/3.png",
-  //   title: "Zein PicSocial",
-  //   description: "for photographers",
-  //   technologies: ["ASP.Net Core", "Entity Framework", "ReactTS", "SQL Server"],
-  //   link: "#",
-  // },
 ];
 
 const ScrollReveal = ({ children }) => {
@@ -114,17 +107,18 @@ const ProjectCard = ({ project, index }) => {
             ))}
           </motion.div>
 
-          <motion.a
-            href={project.link}
-            className="flex items-center justify-center w-[180px] text-sm text-black bg-white px-4 py-2 rounded-lg hover:bg-gray-200 transition-all md:w-[200px] md:text-base"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-            whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
-          >
-            <BiLinkExternal size={20} />
-             View Details
-          </motion.a>
+          <Link to={project.link}>
+            <motion.button
+              className="flex items-center justify-center w-[180px] text-sm text-black bg-white px-4 py-2 rounded-lg hover:bg-gray-200 transition-all md:w-[200px] md:text-base"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+            >
+              <BiLinkExternal size={20} />
+               View Details
+            </motion.button>
+          </Link>
         </div>
       </motion.div>
     </ScrollReveal>

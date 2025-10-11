@@ -3,20 +3,43 @@ import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Intro from "./components/Intro";
-
+import ZeinTeamPlanner from "./pages/ZeinTeamPlanner";
+import ZeinIDE from "./pages/ZeinIDE";
+import HutechIDE from "./pages/HutechIDE";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <>
-      {/* <div className="fixed -z-10 min-h-screen w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"></div> */}
-      <div class="fixed -z-10 min-h-screen w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-      <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
-        <Navbar />
-        <Intro />
-        <Tech />
-        <Projects />
-        <Contact />
-      </main>
-    </>
+    <Router>
+      <div className="fixed -z-10 min-h-screen w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
+              <Intro />
+              <Tech />
+              <Projects />
+              <Contact />
+            </main>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
+              <Intro />
+              <Tech />
+              <Projects />
+              <Contact />
+            </main>
+          }
+        />
+        <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
+        <Route path="/home/zein-ide" element={<ZeinIDE />} />
+        <Route path="/home/hutech-ide" element={<HutechIDE />} />
+      </Routes>
+    </Router>
   );
 }
 

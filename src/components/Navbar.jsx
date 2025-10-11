@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 z-10 flex w-full items-center justify-between border-b border-gray-600 bg-neutral-950/70 p-6 backdrop-blur-md text-white md:justify-evenly">
       <a
-        href="#home"
+        href="home"
         className="bg-gradient-to-l from-white to-gray-300 bg-clip-text text-transparent opacity-80 hover:opacity-100 transition-opacity duration-300 text-3xl font-semibold"
       >
         TanAs2k4
