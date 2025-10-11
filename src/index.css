@@ -17,3 +17,41 @@
   background: linear-gradient(to bottom, rgb(0, 62, 196), rgb(184, 0, 153));
   width: 1px;
 } */
+.light-mode {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+/* Tổng thể Light Mode */
+.light-mode {
+  background: linear-gradient(to bottom, #e8eef8, #e0e0e0);
+  color: #111827;
+}
+
+/* Navigation Bar */
+.light-mode nav {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #7b7d80 !important; 
+  color: #111827 !important;
+}
+
+.light-mode nav a,
+.light-mode nav li,
+.light-mode nav button {
+  color: #374151 !important;
+}
+
+/* Background gradient cố định (phần nền dưới cùng) */
+.light-mode .fixed.-z-10 {
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef) !important;
+  background-image: radial-gradient(
+    ellipse 80% 80% at 50% -20%,
+    rgba(120, 119, 198, 0.15),
+    rgba(245, 245, 245, 0)
+  ) !important;
+}
+

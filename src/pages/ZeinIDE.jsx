@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronRight, BiChevronLeft } from "react-icons/bi";
+import { useApp } from "../context/AppContext";
 
 const ZeinIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
+  const { theme } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -22,19 +24,21 @@ const ZeinIDE = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {/* Back to Home Button */}
         <Link to="/home">
           <motion.button
-            className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              theme === 'light' 
+                ? 'text-gray-800 hover:text-gray-600' 
+                : 'text-white hover:text-gray-300'
+            }`}
             whileHover={{ x: -5 }}
             transition={{ duration: 0.2 }}
           >
-            <BiArrowBack size={24} />
-            <span>Back to Home</span>
+            <BiArrowBack size={19} />
+            <span>Home</span>
           </motion.button>
         </Link>
 
-        {/* Project Header */}
         <motion.div
           id="overview"
           className="flex flex-col gap-4"
@@ -42,24 +46,33 @@ const ZeinIDE = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h1 className="text-4xl md:text-6xl font-light text-white">
+          <h1 className={`text-4xl md:text-6xl font-light ${
+            theme === 'light' ? 'text-gray-800' : 'text-white'
+          }`}>
             Zein IDE
           </h1>
-          <p className="text-xl text-gray-300">
-            An interactive online code editor for students learning to code
+          <p className={`text-xl ${
+            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+          }`}>
+            code editor for programming beginners
           </p>
         </motion.div>
 
-        {/* Mini Navbar */}
-        <div className="border-b border-gray-600 pb-2">
+        <div className={`border-b pb-2 ${
+          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
+        }`}>
           <ul className="flex gap-6 overflow-x-auto">
             <li>
               <button
                 onClick={() => scrollToSection("overview")}
                 className={`text-sm whitespace-nowrap transition-colors ${
                   activeSection === "overview"
-                    ? "text-white font-semibold border-b-2 border-white pb-2"
-                    : "text-gray-400 hover:text-gray-200"
+                    ? theme === 'light'
+                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
+                      : "text-white font-semibold border-b-2 border-white pb-2"
+                    : theme === 'light'
+                      ? "text-gray-500 hover:text-gray-700"
+                      : "text-gray-400 hover:text-gray-200"
                 }`}
               >
                 Overview
@@ -70,8 +83,12 @@ const ZeinIDE = () => {
                 onClick={() => scrollToSection("tech-stack")}
                 className={`text-sm whitespace-nowrap transition-colors ${
                   activeSection === "tech-stack"
-                    ? "text-white font-semibold border-b-2 border-white pb-2"
-                    : "text-gray-400 hover:text-gray-200"
+                    ? theme === 'light'
+                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
+                      : "text-white font-semibold border-b-2 border-white pb-2"
+                    : theme === 'light'
+                      ? "text-gray-500 hover:text-gray-700"
+                      : "text-gray-400 hover:text-gray-200"
                 }`}
               >
                 Tech Stack
@@ -80,7 +97,15 @@ const ZeinIDE = () => {
           </ul>
         </div>
 
-        {/* Project Image */}
+        <p className={`leading-relaxed ${
+          theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+        }`}>
+          Zein IDE is an IDE built using the Eclipse Theia framework that runs
+          on both browser and desktop. It offers a modular and customizable
+          coding environment and serves as the foundation for projects like
+          HUTECH IDE, which are tailored for student learning and practice.
+        </p>
+
         <motion.img
           src="/public/zein-ide.png"
           alt="Zein IDE"
@@ -90,37 +115,30 @@ const ZeinIDE = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         />
 
-        {/* Project Description - Overview */}
         <motion.div
-          className="flex flex-col gap-6 text-gray-300"
+          className={`flex flex-col gap-6 ${
+            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div>
-            <p className="leading-relaxed">
-              Zein IDE is a modern, browser-based integrated development environment 
-              designed to make learning programming more accessible and interactive for students. 
-              It provides a clean, intuitive interface where students can write, run, and 
-              debug code without the need for complex local setup.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-semibold text-white mb-4">Key Features</h2>
+            <h2 className={`text-2xl font-semibold mb-4 ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}>
+              Key Features
+            </h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>Real-time code execution and output</li>
-              <li>Syntax highlighting for multiple programming languages</li>
-              <li>Built-in code completion and suggestions</li>
-              <li>Error detection and debugging tools</li>
-              <li>Save and share code snippets</li>
-              <li>Responsive design for mobile and desktop</li>
-              <li>Dark and light theme support</li>
+              <li>Code editing with syntax highlighting and basic code suggestions</li>
+              <li>Supports multiple programming languages: C/C++, Java, and Python</li>
+              <li>Displays error messages and basic debugging tools for troubleshooting</li>
+              <li>Runs seamlessly on both browser and desktop application versions</li>
+              <li>Multiple theme options including dark and light modes</li>
             </ul>
           </div>
         </motion.div>
 
-        {/* Technologies - Tech Stack */}
         <motion.div
           id="tech-stack"
           className="flex flex-col gap-4 scroll-mt-32"
@@ -128,12 +146,18 @@ const ZeinIDE = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold text-white">Technologies Used</h2>
+          <h2 className={`text-2xl font-semibold ${
+            theme === 'light' ? 'text-gray-800' : 'text-white'
+          }`}>
+            Technologies Used
+          </h2>
           <div className="flex flex-wrap gap-3">
             {["Typescript", "TailwindCSS", "JavaScript"].map((tech, index) => (
               <span
                 key={index}
-                className="rounded-lg bg-gray-800 px-4 py-2 text-white"
+                className={`rounded-lg px-4 py-2 ${
+                  theme === 'light' ? 'bg-gray-200 text-gray-800' : 'bg-gray-800 text-white'
+                }`}
               >
                 {tech}
               </span>
@@ -141,17 +165,23 @@ const ZeinIDE = () => {
           </div>
 
           <div className="mt-4">
-            <h3 className="text-xl font-semibold text-white mb-3">Technical Highlights</h3>
-            <p className="leading-relaxed text-gray-300">
-              Built entirely with TypeScript for type-safe, maintainable code. The interface 
-              is crafted using TailwindCSS for a modern, responsive design. The editor leverages 
-              advanced JavaScript features to provide a smooth, native-like coding experience 
-              directly in the browser.
+            <h3 className={`text-2xl font-semibold mb-3 ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}>
+              Overall Summary
+            </h3>
+            <p className={`leading-relaxed ${
+              theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+            }`}>
+              HUTECH IDE is a customized fork of Zein IDE, built on Eclipse
+              Theia. It runs on both browser and desktop, supports C/C++, Java,
+              and Python, and includes syntax highlighting, error display,
+              debugging, and theme options. The platform is tailored for HUTECH
+              University students to make coding and learning more convenient.
             </p>
           </div>
         </motion.div>
 
-        {/* Call to Action */}
         <motion.div
           className="flex gap-4 mt-4"
           initial={{ opacity: 0, y: 20 }}
@@ -160,38 +190,55 @@ const ZeinIDE = () => {
         >
           <a
             href="#"
-            className="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors"
+            className={`px-6 py-3 rounded-lg transition-colors ${
+              theme === 'light'
+                ? 'bg-gray-800 text-white hover:bg-gray-700'
+                : 'bg-white text-black hover:bg-gray-200'
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Try Live Demo
           </a>
           <a
             href="#"
-            className="border border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-black transition-colors"
+            className={`border px-6 py-3 rounded-lg transition-colors ${
+              theme === 'light'
+                ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
+                : 'border-white text-white hover:bg-white hover:text-black'
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             View Source Code
           </a>
         </motion.div>
 
-        {/* Navigation between Projects */}
-        <div className="flex justify-between items-center border-t border-gray-600 pt-8 mt-8">
+        <div className={`flex justify-between items-center border-t pt-8 mt-8 ${
+          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
+        }`}>
           <Link to="/home/zein-teamplanner">
             <motion.button
-              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors text-lg"
+              className={`flex items-center gap-2 transition-colors text-lg ${
+                theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'
+              }`}
               whileHover={{ x: -5 }}
               transition={{ duration: 0.2 }}
             >
               <BiChevronLeft size={28} />
-              <span>Previous: Zein Team Planner</span>
+              <span>Zein Team Planner</span>
             </motion.button>
           </Link>
 
           <Link to="/home/hutech-ide">
             <motion.button
-              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors text-lg"
+              className={`flex items-center gap-2 transition-colors text-lg ${
+                theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'
+              }`}
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <span>Next: HUTECH IDE</span>
+              <span>HUTECH IDE</span>
               <BiChevronRight size={28} />
             </motion.button>
           </Link>

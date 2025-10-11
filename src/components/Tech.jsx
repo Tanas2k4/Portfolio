@@ -8,8 +8,11 @@ import {
 } from "react-icons/bi";
 import { SiDotnet } from "react-icons/si";
 import { motion } from "framer-motion";
+import { useApp } from "../context/AppContext";
 
 const Tech = () => {
+  const { theme } = useApp();
+
   const variants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
@@ -25,7 +28,9 @@ const Tech = () => {
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.5 }}
-        className="text-4xl font-light text-white text-center md:text-6xl"
+        className={`text-4xl font-light text-center md:text-6xl ${
+          theme === 'light' ? 'text-gray-800' : 'text-white'
+        }`}
       >
         Technologies
       </motion.h1>

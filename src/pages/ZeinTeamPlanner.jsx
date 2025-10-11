@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronRight } from "react-icons/bi";
+import { useApp } from "../context/AppContext";
 
 const ZeinTeamPlanner = () => {
   const [activeSection, setActiveSection] = useState("overview");
+  const { theme } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -21,16 +23,20 @@ const ZeinTeamPlanner = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-      >
+      >        
         {/* Back to Home Button */}
         <Link to="/home">
           <motion.button
-            className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+            className={`flex items-center gap-2 transition-colors ${
+              theme === 'light' 
+                ? 'text-gray-800 hover:text-gray-600' 
+                : 'text-white hover:text-gray-300'
+            }`}
             whileHover={{ x: -5 }}
             transition={{ duration: 0.2 }}
           >
-            <BiArrowBack size={24} />
-            <span>Back to Home</span>
+            <BiArrowBack size={18} />
+            <span>Home</span>
           </motion.button>
         </Link>
 
@@ -42,24 +48,34 @@ const ZeinTeamPlanner = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h1 className="text-4xl md:text-6xl font-light text-white">
+          <h1 className={`text-4xl md:text-6xl font-light ${
+            theme === 'light' ? 'text-gray-800' : 'text-white'
+          }`}>
             Zein Team Planner
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className={`text-xl ${
+            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+          }`}>
             A comprehensive team management tool for student collaboration
           </p>
         </motion.div>
 
         {/* Mini Navbar */}
-        <div className="border-b border-gray-600 pb-2">
+        <div className={`border-b pb-2 ${
+          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
+        }`}>
           <ul className="flex gap-6 overflow-x-auto">
             <li>
               <button
                 onClick={() => scrollToSection("overview")}
                 className={`text-sm whitespace-nowrap transition-colors ${
                   activeSection === "overview"
-                    ? "text-white font-semibold border-b-2 border-white pb-2"
-                    : "text-gray-400 hover:text-gray-200"
+                    ? theme === 'light'
+                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
+                      : "text-white font-semibold border-b-2 border-white pb-2"
+                    : theme === 'light'
+                      ? "text-gray-500 hover:text-gray-700"
+                      : "text-gray-400 hover:text-gray-200"
                 }`}
               >
                 Overview
@@ -70,8 +86,12 @@ const ZeinTeamPlanner = () => {
                 onClick={() => scrollToSection("tech-stack")}
                 className={`text-sm whitespace-nowrap transition-colors ${
                   activeSection === "tech-stack"
-                    ? "text-white font-semibold border-b-2 border-white pb-2"
-                    : "text-gray-400 hover:text-gray-200"
+                    ? theme === 'light'
+                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
+                      : "text-white font-semibold border-b-2 border-white pb-2"
+                    : theme === 'light'
+                      ? "text-gray-500 hover:text-gray-700"
+                      : "text-gray-400 hover:text-gray-200"
                 }`}
               >
                 Tech Stack
@@ -79,6 +99,15 @@ const ZeinTeamPlanner = () => {
             </li>
           </ul>
         </div>
+
+        <p className={`leading-relaxed ${
+          theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+        }`}>
+          Zein Team Planner is a project management platform designed
+          specifically for student teams. It streamlines team collaboration,
+          task management, and project tracking to help students work more
+          efficiently together.
+        </p>
 
         {/* Project Image */}
         <motion.img
@@ -92,28 +121,29 @@ const ZeinTeamPlanner = () => {
 
         {/* Project Description - Overview */}
         <motion.div
-          className="flex flex-col gap-6 text-gray-300"
+          className={`flex flex-col gap-6 ${
+            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div>
-            <p className="leading-relaxed">
-              Zein Team Planner is a powerful project management platform designed specifically 
-              for student teams. It streamlines team collaboration, task management, and project 
-              tracking to help students work more efficiently together.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-semibold text-white mb-4">Key Features</h2>
+            <h2 className={`text-2xl font-semibold mb-4 ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}>
+              Key Features
+            </h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>Real-time task assignment and tracking</li>
-              <li>Team member management and role allocation</li>
-              <li>Project timeline visualization</li>
-              <li>File sharing and document management</li>
-              <li>Progress reporting and analytics</li>
-              <li>Integration with academic calendars</li>
+              <li>Manage task lists (Tasks) and event schedules (Events)</li>
+              <li>Assign users/responsible persons to each task</li>
+              <li>
+                Categorize and display task status (Todo, In Progress, Done)
+              </li>
+              <li>Manage deadlines and creation dates</li>
+              <li>Calendar view to track Tasks and Events</li>
+              <li>Integrated Dashboard with charts and detailed insights</li>
+              <li>Notifications for each activity or user action</li>
             </ul>
           </div>
         </motion.div>
@@ -126,12 +156,25 @@ const ZeinTeamPlanner = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold text-white">Technologies Used</h2>
+          <h2 className={`text-2xl font-semibold ${
+            theme === 'light' ? 'text-gray-800' : 'text-white'
+          }`}>
+            Technologies Used
+          </h2>
           <div className="flex flex-wrap gap-3">
-            {["ASP.Net Core", "Entity Framework", "Bootstrap 5", "SQL Server"].map((tech, index) => (
+            {[
+              "ASP.Net Core",
+              "Entity Framework",
+              "Bootstrap 5",
+              "SQL Server",
+            ].map((tech, index) => (
               <span
                 key={index}
-                className="rounded-lg bg-gray-800 px-4 py-2 text-white"
+                className={`rounded-lg px-4 py-2 ${
+                  theme === 'light'
+                    ? 'bg-gray-200 text-gray-800'
+                    : 'bg-gray-800 text-white'
+                }`}
               >
                 {tech}
               </span>
@@ -139,12 +182,19 @@ const ZeinTeamPlanner = () => {
           </div>
 
           <div className="mt-4">
-            <h3 className="text-xl font-semibold text-white mb-3">Technical Highlights</h3>
-            <p className="leading-relaxed text-gray-300">
-              Built with ASP.NET Core for robust backend performance and Entity Framework 
-              for efficient database operations. The application uses SQL Server for reliable 
-              data storage and Bootstrap 5 for a responsive, modern user interface that works 
-              seamlessly across all devices.
+            <h3 className={`text-2xl font-semibold mb-3 ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}>
+              Overall Summary
+            </h3>
+            <p className={`leading-relaxed ${
+              theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+            }`}>
+              The project is a task and event management web application built
+              with ASP.NET Core, Entity Framework, SQL Server, and Bootstrap 5.
+              It provides essential features such as task and event tracking,
+              user assignment, status management, calendar integration,
+              dashboard visualization, and real-time notifications.
             </p>
           </div>
         </motion.div>
@@ -158,27 +208,41 @@ const ZeinTeamPlanner = () => {
         >
           <a
             href="#"
-            className="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors"
+            className={`px-6 py-3 rounded-lg transition-colors ${
+              theme === 'light'
+                ? 'bg-gray-800 text-white hover:bg-gray-700'
+                : 'bg-white text-black hover:bg-gray-200'
+            }`}
           >
             View Live Demo
           </a>
           <a
             href="#"
-            className="border border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-black transition-colors"
+            className={`border px-6 py-3 rounded-lg transition-colors ${
+              theme === 'light'
+                ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
+                : 'border-white text-white hover:bg-white hover:text-black'
+            }`}
           >
             View Source Code
           </a>
         </motion.div>
 
         {/* Navigation to Next Project */}
-        <div className="flex justify-end border-t border-gray-600 pt-8 mt-8">
+        <div className={`flex justify-end border-t pt-8 mt-8 ${
+          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
+        }`}>
           <Link to="/home/zein-ide">
             <motion.button
-              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors text-lg"
+              className={`flex items-center gap-2 transition-colors text-lg ${
+                theme === 'light'
+                  ? 'text-gray-800 hover:text-gray-600'
+                  : 'text-white hover:text-gray-300'
+              }`}
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <span>Next: Zein IDE</span>
+              <span>Zein IDE</span>
               <BiChevronRight size={28} />
             </motion.button>
           </Link>

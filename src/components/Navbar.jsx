@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
+import { useApp } from "../context/AppContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [language, setLanguage] = useState("en"); // "en" or "vi"
-  const [theme, setTheme] = useState("dark"); // "dark" or "light"
+  const { language, theme, toggleLanguage, toggleTheme, t } = useApp();
 
   const menuOpen = () => {
     setIsOpen(!isOpen);
@@ -17,42 +17,50 @@ const Navbar = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
 
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "vi" : "en");
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <nav className="fixed top-0 z-10 flex w-full items-center justify-between border-b border-gray-600 bg-neutral-950/70 p-6 backdrop-blur-md text-white md:justify-evenly">
+    <nav className={`fixed top-0 z-10 flex w-full items-center justify-between border-b p-6 backdrop-blur-md md:justify-evenly ${
+      theme === 'light'
+        ? 'border-gray-300 bg-white/70 text-gray-800'
+        : 'border-gray-600 bg-neutral-950/70 text-white'
+    }`}>
       <a
         href="/home"
-        className="bg-gradient-to-l from-white to-gray-300 bg-clip-text text-transparent opacity-80 hover:opacity-100 transition-opacity duration-300 text-3xl font-semibold"
+        className={`bg-gradient-to-l bg-clip-text text-transparent opacity-80 hover:opacity-100 transition-opacity duration-300 text-3xl font-semibold ${
+          theme === 'light'
+            ? 'from-gray-800 to-gray-600'
+            : 'from-white to-gray-300'
+        }`}
       >
         TanAs2k4
       </a>
       
       <ul className="hidden md:flex gap-10">
         <a href="#home" className="nav-link">
-          <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-            Home
+          <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+            theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+          }`}>
+            {t.home}
           </li>
         </a>
         <a href="#tech" className="nav-link">
-          <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-            Tech
+          <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+            theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+          }`}>
+            {t.tech}
           </li>
         </a>
         <a href="#projects" className="nav-link">
-          <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-            Projects
+          <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+            theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+          }`}>
+            {t.projects}
           </li>
         </a>
         <a href="#contact" className="nav-link">
-          <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-            Contact
+          <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+            theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+          }`}>
+            {t.contact}
           </li>
         </a>
       </ul>
@@ -61,19 +69,29 @@ const Navbar = () => {
       <div className="hidden md:block relative">
         <button
           onClick={toggleSettings}
-          className="text-gray-300 opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer"
+          className={`opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer ${
+            theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+          }`}
         >
           <BsGear size={30} className={`transition-transform duration-300 ${isSettingsOpen ? 'rotate-90' : ''}`} />
         </button>
 
         {/* Settings Dropdown */}
         {isSettingsOpen && (
-          <div className="absolute right-0 top-12 w-64 bg-neutral-900/95 border border-gray-700 rounded-lg p-4 shadow-xl backdrop-blur-md">
+          <div className={`absolute right-0 top-12 w-64 border rounded-lg p-4 shadow-xl backdrop-blur-md ${
+            theme === 'light'
+              ? 'bg-white/95 border-gray-300'
+              : 'bg-neutral-900/95 border-gray-700'
+          }`}>
             {/* Language Toggle */}
-            <div className="mb-4 pb-4 border-b border-gray-700">
+            <div className={`mb-4 pb-4 border-b ${
+              theme === 'light' ? 'border-gray-300' : 'border-gray-700'
+            }`}>
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-gray-300 text-sm">
-                  {language === "en" ? "Tiếng Việt" : "English"}
+                <span className={`text-sm ${
+                  theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+                }`}>
+                  {language === "en" ? "English" : "Tiếng Việt"}
                 </span>
                 <div className="relative">
                   <input
@@ -84,7 +102,7 @@ const Navbar = () => {
                   />
                   <div
                     className={`w-14 h-7 rounded-full transition-colors duration-300 ${
-                      language === "vi" ? "bg-blue-600" : "bg-gray-600"
+                      language === "vi" ? "bg-blue-600" : theme === 'light' ? 'bg-gray-300' : "bg-gray-600"
                     }`}
                   >
                     <div
@@ -95,16 +113,20 @@ const Navbar = () => {
                   </div>
                 </div>
               </label>
-              <p className="text-xs text-gray-500 mt-2">
-                {language === "en" ? "Switch to Vietnamese" : "Chuyển sang tiếng Anh"}
+              <p className={`text-xs mt-2 ${
+                theme === 'light' ? 'text-gray-500' : 'text-gray-500'
+              }`}>
+                {language === "en" ? t.switchToVietnamese : t.switchToEnglish}
               </p>
             </div>
 
             {/* Theme Toggle */}
             <div>
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-gray-300 text-sm">
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                <span className={`text-sm ${
+                  theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+                }`}>
+                  {theme === "dark" ? t.darkMode : t.lightMode}
                 </span>
                 <div className="relative">
                   <input
@@ -126,8 +148,10 @@ const Navbar = () => {
                   </div>
                 </div>
               </label>
-              <p className="text-xs text-gray-500 mt-2">
-                {theme === "dark" ? "Switch to light theme" : "Chuyển sang chế độ tối"}
+              <p className={`text-xs mt-2 ${
+                theme === 'light' ? 'text-gray-500' : 'text-gray-500'
+              }`}>
+                {theme === "dark" ? t.switchToLight : t.switchToDark}
               </p>
             </div>
           </div>
@@ -138,12 +162,16 @@ const Navbar = () => {
       <div className="md:hidden">
         {isOpen ? (
           <BiX
-            className="text-4xl text-white cursor-pointer"
+            className={`text-4xl cursor-pointer ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}
             onClick={menuOpen}
           />
         ) : (
           <BiMenu
-            className="text-4xl text-white cursor-pointer"
+            className={`text-4xl cursor-pointer ${
+              theme === 'light' ? 'text-gray-800' : 'text-white'
+            }`}
             onClick={menuOpen}
           />
         )}
@@ -151,38 +179,56 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed right-0 top-24 h-screen w-1/2 flex flex-col items-start justify-start gap-10 border border-gray-800 bg-neutral-950/90 p-12 md:hidden">
+        <div className={`fixed right-0 top-24 h-screen w-1/2 flex flex-col items-start justify-start gap-10 border backdrop-blur-md p-12 md:hidden ${
+          theme === 'light'
+            ? 'border-gray-300 bg-white/90'
+            : 'border-gray-800 bg-neutral-950/90'
+        }`}>
           <ul className="flex flex-col gap-8">
             <a href="#home" className="mobile-nav-link" onClick={menuOpen}>
-              <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                Home
+              <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+                theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+              }`}>
+                {t.home}
               </li>
             </a>
             <a href="#tech" className="mobile-nav-link" onClick={menuOpen}>
-              <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                Tech
+              <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+                theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+              }`}>
+                {t.tech}
               </li>
             </a>
             <a href="#projects" className="mobile-nav-link" onClick={menuOpen}>
-              <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                Projects
+              <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+                theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+              }`}>
+                {t.projects}
               </li>
             </a>
             <a href="#contact" className="mobile-nav-link" onClick={menuOpen}>
-              <li className="text-gray-300 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                Contact
+              <li className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+                theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+              }`}>
+                {t.contact}
               </li>
             </a>
           </ul>
 
           {/* Mobile Settings */}
-          <div className="w-full border-t border-gray-700 pt-6">
-            <h3 className="text-gray-400 text-xs uppercase mb-4">Settings</h3>
+          <div className={`w-full border-t pt-6 ${
+            theme === 'light' ? 'border-gray-300' : 'border-gray-700'
+          }`}>
+            <h3 className={`text-xs uppercase mb-4 ${
+              theme === 'light' ? 'text-gray-600' : 'text-gray-400'
+            }`}>Settings</h3>
             
             {/* Language Toggle */}
             <div className="mb-4">
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-gray-300 text-sm">
+                <span className={`text-sm ${
+                  theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+                }`}>
                   {language === "en" ? "Tiếng Việt" : "English"}
                 </span>
                 <div className="relative">
@@ -194,7 +240,7 @@ const Navbar = () => {
                   />
                   <div
                     className={`w-12 h-6 rounded-full transition-colors duration-300 ${
-                      language === "vi" ? "bg-blue-600" : "bg-gray-600"
+                      language === "vi" ? "bg-blue-600" : theme === 'light' ? 'bg-gray-300' : "bg-gray-600"
                     }`}
                   >
                     <div
@@ -210,8 +256,10 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <div>
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-gray-300 text-sm">
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                <span className={`text-sm ${
+                  theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+                }`}>
+                  {theme === "dark" ? t.lightMode : t.darkMode}
                 </span>
                 <div className="relative">
                   <input

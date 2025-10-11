@@ -9,6 +9,7 @@ import ZeinTeamPlanner from "./pages/ZeinTeamPlanner";
 import ZeinIDE from "./pages/ZeinIDE";
 import HutechIDE from "./pages/HutechIDE";
 import Footer from "./components/Footer";
+import { AppProvider, useApp } from "./context/AppContext";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -20,11 +21,17 @@ function ScrollToTop() {
   return null;
 }
 
-function App() {
+function AppContent() {
+  const { theme } = useApp();
+
   return (
     <Router>
       <ScrollToTop />
-      <div className="fixed -z-10 min-h-screen w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <div className={`fixed -z-10 min-h-screen w-full ${
+        theme === 'light' 
+          ? 'bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.12),rgba(255,255,255,0))]'
+          : 'bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'
+      }`}></div>
       <Navbar />
       <Routes>
         <Route path="/" element={
@@ -47,9 +54,17 @@ function App() {
         } />
         <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
         <Route path="/home/zein-ide" element={<ZeinIDE />} />
-        <Route path="/home/hutech-ide" element={<HutechIDE /> } />
+        <Route path="/home/hutech-ide" element={<HutechIDE />} />
       </Routes>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }
 
