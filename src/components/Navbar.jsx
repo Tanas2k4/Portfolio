@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className="fixed top-0 z-10 flex w-full items-center justify-between border-b border-gray-600 bg-neutral-950/70 p-6 backdrop-blur-md text-white md:justify-evenly">
       <a
         href="#home"
-        className="text-white opacity-80 hover:opacity-100 transition-opacity duration-300 text-3xl font-semibold"
+        className="bg-gradient-to-l from-white to-gray-300 bg-clip-text text-transparent opacity-80 hover:opacity-100 transition-opacity duration-300 text-3xl font-semibold"
       >
         TanAs2k4
       </a>
@@ -42,10 +42,10 @@ const Navbar = () => {
 
       <ul className="hidden md:flex gap-5">
         <li className="social-link">
-          <BsFacebook size={20} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+          <BsFacebook size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
         </li>
         <li className="social-link">
-          <BsLinkedin size={20} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
+          <BsLinkedin size={30} className="text-gray-300 opacity-70 hover:text-gray-200 hover:opacity-100 transition-all duration-300 cursor-pointer" />
         </li>
         
       </ul>
