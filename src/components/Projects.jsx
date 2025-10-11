@@ -4,7 +4,7 @@ import { BiLinkExternal } from "react-icons/bi";
 
 const projectsData = [
   {
-    image: "/public/1.png",
+    image: "/public/zein-ide.png",
     title: "Zein IDE",
     description: "for student learn code",
     technologies: ["Typescript", "TailwindCSS", "JavaScript"],
@@ -12,6 +12,13 @@ const projectsData = [
   },
   {
     image: "/public/2.png",
+    title: "HUTECH IDE",
+    description: "for student learn code",
+    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
+    link: "#",
+  },
+  {
+    image: "/public/zein-teamplanner.png",
     title: "Zein Team Planner",
     description: "for student team work",
     technologies: [
@@ -85,8 +92,8 @@ const ProjectCard = ({ project, index }) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="text-xl font-semibold">{project.title}</div>
-            <p className="text-gray-400">{project.description}</p>
+            <div className="text-xl font-semibold text-white">{project.title}</div>
+            <p className="text-gray-300">{project.description}</p>
           </motion.div>
 
           <motion.div
@@ -98,7 +105,7 @@ const ProjectCard = ({ project, index }) => {
             {project.technologies.map((tech, techIndex) => (
               <motion.span
                 key={techIndex}
-                className="rounded-lg bg-black px-3 py-1 text-sm"
+                className="rounded-lg bg-gray-800 px-3 py-1 text-sm text-white"
                 variants={techItemVariants}
               >
                 {tech}
@@ -108,14 +115,14 @@ const ProjectCard = ({ project, index }) => {
 
           <motion.a
             href={project.link}
-            className="flex items-center justify-center w-[180px] text-sm text-white bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition-all md:w-[200px] md:text-base"
+            className="flex items-center justify-center w-[180px] text-sm text-black bg-white px-4 py-2 rounded-lg hover:bg-gray-200 transition-all md:w-[200px] md:text-base"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
             whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
           >
             <BiLinkExternal size={20} />
-            View Details
+             View Details
           </motion.a>
         </div>
       </motion.div>
@@ -127,7 +134,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      className="flex min-h-screen w-full flex-col items-center justify-center gap-16 p-4 md:px-14 md:py-24"
+      className="flex min-h-screen w-full flex-col items-center justify-center gap-20 p-4 md:px-14 md:py-24"
     >
       <motion.h1
         className="text-4xl font-light text-white md:text-6xl"
@@ -137,7 +144,7 @@ const Projects = () => {
       >
         My Projects
       </motion.h1>
-      <div className="flex w-full max-w-[1000px] flex-col gap-16 text-white">
+      <div className="flex w-full max-w-[1000px] flex-col gap-20 text-white">
         {projectsData.map((project, index) => (
           <ProjectCard key={index} project={project} index={index} />
         ))}
