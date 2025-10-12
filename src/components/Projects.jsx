@@ -4,35 +4,6 @@ import { BiLinkExternal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
-const projectsData = [
-  {
-    image: "/public/zein-teamplanner.png",
-    title: "Zein Team Planner",
-    description: "for student team work",
-    technologies: [
-      "ASP.Net Core",
-      "Entity Framework",
-      "Bootstrap 5",
-      "SQL Server",
-    ],
-    link: "/home/zein-teamplanner",
-  },
-  {
-    image: "/public/zein-ide.png",
-    title: "Zein IDE",
-    description: "for student learn code",
-    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "/home/zein-ide",
-  },
-  {
-    image: "/public/hutech-ide.png",
-    title: "HUTECH IDE",
-    description: "for student learn code",
-    technologies: ["Typescript", "TailwindCSS", "JavaScript"],
-    link: "/home/hutech-ide",
-  },
-];
-
 const ScrollReveal = ({ children }) => {
   return (
     <motion.div
@@ -46,7 +17,7 @@ const ScrollReveal = ({ children }) => {
 };
 
 const ProjectCard = ({ project, index }) => {
-  const { theme } = useApp();
+  const { theme, language, t } = useApp();
 
   const techVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -68,15 +39,16 @@ const ProjectCard = ({ project, index }) => {
   return (
     <ScrollReveal>
       <motion.div
-        className="flex flex-col items-center  gap-8 md:flex-row md:gap-24"
+        className="flex flex-col items-center gap-8 md:flex-row md:gap-24"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
+        style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
       >
         <motion.img
           src={project.image}
           alt={project.title}
-          className="w-full cursor-pointer rounded-2xl border border-gray-700 transition-all hover:scale-105 md:w-[300px]"
+          className="w-full cursor-pointer rounded-2xl transition-all hover:scale-105 md:w-[300px]"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -95,7 +67,7 @@ const ProjectCard = ({ project, index }) => {
               {project.title}
             </div>
             <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>
-              {project.description}
+              {project.descriptionKey ? t[project.descriptionKey] : project.description}
             </p>
           </motion.div>
 
@@ -110,7 +82,7 @@ const ProjectCard = ({ project, index }) => {
                 key={techIndex}
                 className={`rounded-lg px-3 py-1 text-sm ${
                   theme === 'light'
-                    ? 'bg-gray-200 text-gray-800'
+                    ? 'bg-white text-gray-800'
                     : 'bg-gray-800 text-white'
                 }`}
                 variants={techItemVariants}
@@ -133,7 +105,7 @@ const ProjectCard = ({ project, index }) => {
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
             >
               <BiLinkExternal size={20} />
-               View Details
+              {t.viewDetails}
             </motion.button>
           </Link>
         </div>
@@ -143,12 +115,42 @@ const ProjectCard = ({ project, index }) => {
 };
 
 const Projects = () => {
-  const { theme } = useApp();
+  const { theme, language, t } = useApp();
+
+  const projectsData = [
+    {
+      image: "/public/zein-teamplanner.png",
+      title: "Zein Team Planner",
+      descriptionKey: "forStudentTeamWork",
+      technologies: [
+        "ASP.Net Core",
+        "Entity Framework",
+        "Bootstrap 5",
+        "SQL Server",
+      ],
+      link: "/home/zein-teamplanner",
+    },
+    {
+      image: "/public/zein-ide.png",
+      title: "Zein IDE",
+      descriptionKey: "forStudentLearnCode",
+      technologies: ["Typescript", "TailwindCSS", "JavaScript"],
+      link: "/home/zein-ide",
+    },
+    {
+      image: "/public/hutech-ide.png",
+      title: "HUTECH IDE",
+      descriptionKey: "forStudentLearnCode",
+      technologies: ["Typescript", "TailwindCSS", "JavaScript"],
+      link: "/home/hutech-ide",
+    },
+  ];
 
   return (
     <div
       id="projects"
       className="flex min-h-screen w-full flex-col items-center justify-center gap-20 p-4 md:px-14 md:py-24"
+      style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
     >
       <motion.h1
         className={`text-4xl font-light md:text-6xl ${
@@ -158,7 +160,7 @@ const Projects = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        My Projects
+        {t.myProjects}
       </motion.h1>
       <div className="flex w-full max-w-[1000px] flex-col gap-20">
         {projectsData.map((project, index) => (

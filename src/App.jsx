@@ -40,7 +40,7 @@ function AppContent() {
             <Tech />
             <Projects />
             <Contact />
-            <Footer />
+
           </main>
         } />
         <Route path="/home" element={
@@ -48,14 +48,14 @@ function AppContent() {
             <Intro />
             <Tech />
             <Projects />
-            <Contact />
-            <Footer />
+            <Contact />           
           </main>
         } />
         <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
         <Route path="/home/zein-ide" element={<ZeinIDE />} />
         <Route path="/home/hutech-ide" element={<HutechIDE />} />
       </Routes>
+      <Footer /> 
     </Router>
   );
 }

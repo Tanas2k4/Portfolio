@@ -229,7 +229,7 @@ const Navbar = () => {
                 <span className={`text-sm ${
                   theme === 'light' ? 'text-gray-700' : 'text-gray-300'
                 }`}>
-                  {language === "en" ? "Tiếng Việt" : "English"}
+                  {language === "en" ? "English" : "Tiếng Việt"}
                 </span>
                 <div className="relative">
                   <input
@@ -259,7 +259,7 @@ const Navbar = () => {
                 <span className={`text-sm ${
                   theme === 'light' ? 'text-gray-700' : 'text-gray-300'
                 }`}>
-                  {theme === "dark" ? t.lightMode : t.darkMode}
+                  {theme === "dark" ? t.darkMode : t.lightMode}
                 </span>
                 <div className="relative">
                   <input

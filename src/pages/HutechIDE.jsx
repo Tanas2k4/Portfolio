@@ -157,7 +157,7 @@ const HutechIDE = () => {
               <span
                 key={index}
                 className={`rounded-lg px-4 py-2 ${
-                  theme === 'light' ? 'bg-gray-200 text-gray-800' : 'bg-gray-800 text-white'
+                  theme === 'light' ? 'bg-white text-gray-800' : 'bg-gray-800 text-white'
                 }`}
               >
                 {tech}
@@ -169,7 +169,7 @@ const HutechIDE = () => {
             <h3 className={`text-xl font-semibold mb-3 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Technical Highlights
+              Overall Summary
             </h3>
             <p className={`leading-relaxed ${
               theme === 'light' ? 'text-gray-600' : 'text-gray-300'

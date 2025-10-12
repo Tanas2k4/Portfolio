@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { useApp } from "../context/AppContext";
 
 const Tech = () => {
-  const { theme } = useApp();
+  const { theme, language, t } = useApp();
 
   const variants = {
     hidden: { opacity: 0, y: 50 },
@@ -22,6 +22,7 @@ const Tech = () => {
     <div
       id="tech"
       className="flex flex-col items-center justify-center min-h-screen w-screen gap-12 p-8 box-border md:gap-16"
+      style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
     >
       <motion.h1
         variants={variants}
@@ -32,7 +33,7 @@ const Tech = () => {
           theme === 'light' ? 'text-gray-800' : 'text-white'
         }`}
       >
-        Technologies
+        {t.technologies}
       </motion.h1>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-10 p-6 max-w-[1200px] w-full justify-items-center">
         {[

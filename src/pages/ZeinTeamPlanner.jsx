@@ -172,7 +172,7 @@ const ZeinTeamPlanner = () => {
                 key={index}
                 className={`rounded-lg px-4 py-2 ${
                   theme === 'light'
-                    ? 'bg-gray-200 text-gray-800'
+                    ? 'bg-white text-gray-800'
                     : 'bg-gray-800 text-white'
                 }`}
               >
