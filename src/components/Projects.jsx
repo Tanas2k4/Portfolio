@@ -48,7 +48,7 @@ const ProjectCard = ({ project, index }) => {
         <motion.img
           src={project.image}
           alt={project.title}
-          className="w-full cursor-pointer rounded-2xl transition-all hover:scale-105 md:w-[300px]"
+          className="w-full cursor-pointer rounded-2xl transition-all hover:scale-105 md:w-[300px] border border-gray-400"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}

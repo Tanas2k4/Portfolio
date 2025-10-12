@@ -6,7 +6,7 @@ import { useApp } from "../context/AppContext";
 
 const ZeinIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
-  const { theme } = useApp();
+  const { theme, t } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -35,7 +35,7 @@ const ZeinIDE = () => {
             transition={{ duration: 0.2 }}
           >
             <BiArrowBack size={19} />
-            <span>Home</span>
+            <span>{t.backToHome}</span>
           </motion.button>
         </Link>
 
@@ -54,7 +54,7 @@ const ZeinIDE = () => {
           <p className={`text-xl ${
             theme === 'light' ? 'text-gray-600' : 'text-gray-300'
           }`}>
-            code editor for programming beginners
+            {t.zeinIDESubtitle}
           </p>
         </motion.div>
 
@@ -75,7 +75,7 @@ const ZeinIDE = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Overview
+                {t.overview}
               </button>
             </li>
             <li>
@@ -91,7 +91,7 @@ const ZeinIDE = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Tech Stack
+                {t.techStack}
               </button>
             </li>
           </ul>
@@ -100,10 +100,7 @@ const ZeinIDE = () => {
         <p className={`leading-relaxed ${
           theme === 'light' ? 'text-gray-600' : 'text-gray-300'
         }`}>
-          Zein IDE is an IDE built using the Eclipse Theia framework that runs
-          on both browser and desktop. It offers a modular and customizable
-          coding environment and serves as the foundation for projects like
-          HUTECH IDE, which are tailored for student learning and practice.
+          {t.zeinIDEDesc}
         </p>
 
         <motion.img
@@ -127,14 +124,14 @@ const ZeinIDE = () => {
             <h2 className={`text-2xl font-semibold mb-4 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Key Features
+              {t.keyFeatures}
             </h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>Code editing with syntax highlighting and basic code suggestions</li>
-              <li>Supports multiple programming languages: C/C++, Java, and Python</li>
-              <li>Displays error messages and basic debugging tools for troubleshooting</li>
-              <li>Runs seamlessly on both browser and desktop application versions</li>
-              <li>Multiple theme options including dark and light modes</li>
+              <li>{t.zeinIDEFeature1}</li>
+              <li>{t.zeinIDEFeature2}</li>
+              <li>{t.zeinIDEFeature3}</li>
+              <li>{t.zeinIDEFeature4}</li>
+              <li>{t.zeinIDEFeature5}</li>
             </ul>
           </div>
         </motion.div>
@@ -149,7 +146,7 @@ const ZeinIDE = () => {
           <h2 className={`text-2xl font-semibold ${
             theme === 'light' ? 'text-gray-800' : 'text-white'
           }`}>
-            Technologies Used
+            {t.technologiesUsed}
           </h2>
           <div className="flex flex-wrap gap-3">
             {["Typescript", "TailwindCSS", "JavaScript"].map((tech, index) => (
@@ -168,16 +165,12 @@ const ZeinIDE = () => {
             <h3 className={`text-2xl font-semibold mb-3 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Overall Summary
+              {t.overallSummary}
             </h3>
             <p className={`leading-relaxed ${
               theme === 'light' ? 'text-gray-600' : 'text-gray-300'
             }`}>
-              HUTECH IDE is a customized fork of Zein IDE, built on Eclipse
-              Theia. It runs on both browser and desktop, supports C/C++, Java,
-              and Python, and includes syntax highlighting, error display,
-              debugging, and theme options. The platform is tailored for HUTECH
-              University students to make coding and learning more convenient.
+              {t.zeinIDESummary}
             </p>
           </div>
         </motion.div>
@@ -189,7 +182,7 @@ const ZeinIDE = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <a
-            href="#"
+            href="https://zeinide.qzz.io/"
             className={`px-6 py-3 rounded-lg transition-colors ${
               theme === 'light'
                 ? 'bg-gray-800 text-white hover:bg-gray-700'
@@ -198,10 +191,10 @@ const ZeinIDE = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Try Live Demo
+            Landing Page
           </a>
           <a
-            href="#"
+            href="https://gitlab.com/khar34/zein-ide"
             className={`border px-6 py-3 rounded-lg transition-colors ${
               theme === 'light'
                 ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
@@ -210,7 +203,7 @@ const ZeinIDE = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View Source Code
+            {t.viewSourceCode}
           </a>
         </motion.div>
 
@@ -226,7 +219,8 @@ const ZeinIDE = () => {
               transition={{ duration: 0.2 }}
             >
               <BiChevronLeft size={28} />
-              <span>Zein Team Planner</span>
+              <span>{t.zeinTeamPlannerTitle}</span>
+              Zein Team Planner
             </motion.button>
           </Link>
 
@@ -238,7 +232,8 @@ const ZeinIDE = () => {
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <span>HUTECH IDE</span>
+              <span>{t.hutechIDETitle}</span>
+              Hutech IDE
               <BiChevronRight size={28} />
             </motion.button>
           </Link>

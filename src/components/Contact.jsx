@@ -31,7 +31,7 @@ const Contact = () => {
           href="mailto:tt.tan25204@gmail.com" 
           className={`text-nowrap rounded-lg border px-5 py-3 text-lg font-bold transition-all duration-200 hover:-translate-y-2 hover:shadow-xl ${
             theme === 'light'
-              ? 'border-gray-800 bg-white text-gray-800 hover:shadow-gray-400'
+              ? 'border-gray-800 bg-gray-200 text-gray-800 hover:shadow-gray-400'
               : 'border-white bg-black text-white hover:shadow-gray-600'
           }`}
         >

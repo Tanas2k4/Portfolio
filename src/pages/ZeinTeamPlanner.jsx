@@ -6,7 +6,7 @@ import { useApp } from "../context/AppContext";
 
 const ZeinTeamPlanner = () => {
   const [activeSection, setActiveSection] = useState("overview");
-  const { theme } = useApp();
+  const { theme, language, t } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -17,14 +17,16 @@ const ZeinTeamPlanner = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center px-4 md:px-8 lg:px-16 py-24">
+    <div 
+      className="min-h-screen w-full flex flex-col items-center px-4 md:px-8 lg:px-16 py-24"
+      style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
+    >
       <motion.div
         className="w-full max-w-[1000px] flex flex-col gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >        
-        {/* Back to Home Button */}
         <Link to="/home">
           <motion.button
             className={`flex items-center gap-2 transition-colors ${
@@ -36,11 +38,10 @@ const ZeinTeamPlanner = () => {
             transition={{ duration: 0.2 }}
           >
             <BiArrowBack size={18} />
-            <span>Home</span>
+            <span>{t.home}</span>
           </motion.button>
         </Link>
 
-        {/* Project Header */}
         <motion.div
           id="overview"
           className="flex flex-col gap-4"
@@ -56,11 +57,10 @@ const ZeinTeamPlanner = () => {
           <p className={`text-xl ${
             theme === 'light' ? 'text-gray-600' : 'text-gray-300'
           }`}>
-            A comprehensive team management tool for student collaboration
+            {t.zeinTeamPlannerSubtitle}
           </p>
         </motion.div>
 
-        {/* Mini Navbar */}
         <div className={`border-b pb-2 ${
           theme === 'light' ? 'border-gray-300' : 'border-gray-600'
         }`}>
@@ -78,7 +78,7 @@ const ZeinTeamPlanner = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Overview
+                {t.overview}
               </button>
             </li>
             <li>
@@ -94,7 +94,7 @@ const ZeinTeamPlanner = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Tech Stack
+                {t.techStack}
               </button>
             </li>
           </ul>
@@ -103,13 +103,9 @@ const ZeinTeamPlanner = () => {
         <p className={`leading-relaxed ${
           theme === 'light' ? 'text-gray-600' : 'text-gray-300'
         }`}>
-          Zein Team Planner is a project management platform designed
-          specifically for student teams. It streamlines team collaboration,
-          task management, and project tracking to help students work more
-          efficiently together.
+          {t.zeinTeamPlannerDesc}
         </p>
 
-        {/* Project Image */}
         <motion.img
           src="/public/zein-teamplanner.png"
           alt="Zein Team Planner"
@@ -119,7 +115,6 @@ const ZeinTeamPlanner = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         />
 
-        {/* Project Description - Overview */}
         <motion.div
           className={`flex flex-col gap-6 ${
             theme === 'light' ? 'text-gray-600' : 'text-gray-300'
@@ -132,23 +127,20 @@ const ZeinTeamPlanner = () => {
             <h2 className={`text-2xl font-semibold mb-4 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Key Features
+              {t.keyFeatures}
             </h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>Manage task lists (Tasks) and event schedules (Events)</li>
-              <li>Assign users/responsible persons to each task</li>
-              <li>
-                Categorize and display task status (Todo, In Progress, Done)
-              </li>
-              <li>Manage deadlines and creation dates</li>
-              <li>Calendar view to track Tasks and Events</li>
-              <li>Integrated Dashboard with charts and detailed insights</li>
-              <li>Notifications for each activity or user action</li>
+              <li>{t.zeinTeamPlannerFeature1}</li>
+              <li>{t.zeinTeamPlannerFeature2}</li>
+              <li>{t.zeinTeamPlannerFeature3}</li>
+              <li>{t.zeinTeamPlannerFeature4}</li>
+              <li>{t.zeinTeamPlannerFeature5}</li>
+              <li>{t.zeinTeamPlannerFeature6}</li>
+              <li>{t.zeinTeamPlannerFeature7}</li>
             </ul>
           </div>
         </motion.div>
 
-        {/* Technologies - Tech Stack */}
         <motion.div
           id="tech-stack"
           className="flex flex-col gap-4 scroll-mt-32"
@@ -159,21 +151,14 @@ const ZeinTeamPlanner = () => {
           <h2 className={`text-2xl font-semibold ${
             theme === 'light' ? 'text-gray-800' : 'text-white'
           }`}>
-            Technologies Used
+            {t.technologiesUsed}
           </h2>
           <div className="flex flex-wrap gap-3">
-            {[
-              "ASP.Net Core",
-              "Entity Framework",
-              "Bootstrap 5",
-              "SQL Server",
-            ].map((tech, index) => (
+            {["ASP.Net Core", "Entity Framework", "Bootstrap 5", "SQL Server"].map((tech, index) => (
               <span
                 key={index}
                 className={`rounded-lg px-4 py-2 ${
-                  theme === 'light'
-                    ? 'bg-white text-gray-800'
-                    : 'bg-gray-800 text-white'
+                  theme === 'light' ? 'bg-white text-gray-800' : 'bg-gray-800 text-white'
                 }`}
               >
                 {tech}
@@ -185,21 +170,16 @@ const ZeinTeamPlanner = () => {
             <h3 className={`text-2xl font-semibold mb-3 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Overall Summary
+              {t.overallSummary}
             </h3>
             <p className={`leading-relaxed ${
               theme === 'light' ? 'text-gray-600' : 'text-gray-300'
             }`}>
-              The project is a task and event management web application built
-              with ASP.NET Core, Entity Framework, SQL Server, and Bootstrap 5.
-              It provides essential features such as task and event tracking,
-              user assignment, status management, calendar integration,
-              dashboard visualization, and real-time notifications.
+              {t.zeinTeamPlannerSummary}
             </p>
           </div>
         </motion.div>
 
-        {/* Call to Action */}
         <motion.div
           className="flex gap-4 mt-4"
           initial={{ opacity: 0, y: 20 }}
@@ -214,30 +194,27 @@ const ZeinTeamPlanner = () => {
                 : 'bg-white text-black hover:bg-gray-200'
             }`}
           >
-            View Live Demo
+            {t.tryLiveDemo}
           </a>
           <a
-            href="#"
+            href="https://github.com/Tanas2k4/ZEIN_TeamPlanner"
             className={`border px-6 py-3 rounded-lg transition-colors ${
               theme === 'light'
                 ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
                 : 'border-white text-white hover:bg-white hover:text-black'
             }`}
           >
-            View Source Code
+            {t.viewSourceCode}
           </a>
         </motion.div>
 
-        {/* Navigation to Next Project */}
         <div className={`flex justify-end border-t pt-8 mt-8 ${
           theme === 'light' ? 'border-gray-300' : 'border-gray-600'
         }`}>
           <Link to="/home/zein-ide">
             <motion.button
               className={`flex items-center gap-2 transition-colors text-lg ${
-                theme === 'light'
-                  ? 'text-gray-800 hover:text-gray-600'
-                  : 'text-white hover:text-gray-300'
+                theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'
               }`}
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}

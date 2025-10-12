@@ -6,7 +6,7 @@ import { useApp } from "../context/AppContext";
 
 const HutechIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
-  const { theme } = useApp();
+  const { theme, t } = useApp(); // Thêm t để lấy translations
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -34,8 +34,8 @@ const HutechIDE = () => {
             whileHover={{ x: -5 }}
             transition={{ duration: 0.2 }}
           >
-            <BiArrowBack size={24} />
-            <span>Back to Home</span>
+            <BiArrowBack size={19} />
+            <span>{t.backToHome}</span>
           </motion.button>
         </Link>
 
@@ -54,7 +54,7 @@ const HutechIDE = () => {
           <p className={`text-xl ${
             theme === 'light' ? 'text-gray-600' : 'text-gray-300'
           }`}>
-            A specialized IDE platform for HUTECH students to practice coding
+            {t.hutechIDESubtitle}
           </p>
         </motion.div>
 
@@ -75,7 +75,7 @@ const HutechIDE = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Overview
+                {t.overview}
               </button>
             </li>
             <li>
@@ -91,7 +91,7 @@ const HutechIDE = () => {
                       : "text-gray-400 hover:text-gray-200"
                 }`}
               >
-                Tech Stack
+                {t.techStack}
               </button>
             </li>
           </ul>
@@ -100,11 +100,7 @@ const HutechIDE = () => {
         <p className={`leading-relaxed ${
           theme === 'light' ? 'text-gray-600' : 'text-gray-300'
         }`}>
-          HUTECH IDE is a customized fork of the Zein IDE project, developed for
-          HUTECH University students. It offers an online programming
-          environment where students can practice coding, complete exercises,
-          and receive instant feedback designed to support their learning
-          experience.
+          {t.hutechIDEDesc}
         </p>
 
         <motion.img
@@ -128,14 +124,14 @@ const HutechIDE = () => {
             <h2 className={`text-2xl font-semibold mb-4 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Key Features
+              {t.keyFeatures}
             </h2>
             <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>Code editing with syntax highlighting and basic code suggestions</li>
-              <li>Supports multiple programming languages: C/C++, Java and Python</li>
-              <li>Displays error messages and basic debugging tools for troubleshooting</li>
-              <li>Runs seamlessly on both browser and desktop application versions</li>
-              <li>Multiple theme options including dark and light modes</li>
+              <li>{t.zeinIDEFeature1}</li>
+              <li>{t.zeinIDEFeature2}</li>
+              <li>{t.zeinIDEFeature3}</li>
+              <li>{t.zeinIDEFeature4}</li>
+              <li>{t.zeinIDEFeature5}</li>
             </ul>
           </div>
         </motion.div>
@@ -150,7 +146,7 @@ const HutechIDE = () => {
           <h2 className={`text-2xl font-semibold ${
             theme === 'light' ? 'text-gray-800' : 'text-white'
           }`}>
-            Technologies Used
+            {t.technologiesUsed}
           </h2>
           <div className="flex flex-wrap gap-3">
             {["Typescript", "TailwindCSS", "JavaScript"].map((tech, index) => (
@@ -166,25 +162,20 @@ const HutechIDE = () => {
           </div>
 
           <div className="mt-4">
-            <h3 className={`text-xl font-semibold mb-3 ${
+            <h3 className={`text-2xl font-semibold mb-3 ${
               theme === 'light' ? 'text-gray-800' : 'text-white'
             }`}>
-              Overall Summary
+              {t.overallSummary}
             </h3>
             <p className={`leading-relaxed ${
               theme === 'light' ? 'text-gray-600' : 'text-gray-300'
             }`}>
-              The HUTECH IDE provides a simple coding environment with syntax
-              highlighting, code suggestions, and error reporting features. It
-              supports C/C++, Java, and Python, allowing users to write and test
-              code efficiently. The platform also includes basic debugging tools
-              and offers both dark and light themes. It is available in both web
-              and desktop versions for flexible use.
+              {t.hutechIDESummary}
             </p>
           </div>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           className="flex gap-4 mt-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -197,8 +188,10 @@ const HutechIDE = () => {
                 ? 'bg-gray-800 text-white hover:bg-gray-700'
                 : 'bg-white text-black hover:bg-gray-200'
             }`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Try Live Demo
+            {t.tryLiveDemo}
           </a>
           <a
             href="#"
@@ -207,12 +200,14 @@ const HutechIDE = () => {
                 ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
                 : 'border-white text-white hover:bg-white hover:text-black'
             }`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            View Source Code
+            {t.viewSourceCode}
           </a>
-        </motion.div>
+        </motion.div> */}
 
-        <div className={`flex justify-start border-t pt-8 mt-8 ${
+        <div className={`flex justify-start items-center border-t pt-8 mt-8 ${
           theme === 'light' ? 'border-gray-300' : 'border-gray-600'
         }`}>
           <Link to="/home/zein-ide">
@@ -222,9 +217,10 @@ const HutechIDE = () => {
               }`}
               whileHover={{ x: -5 }}
               transition={{ duration: 0.2 }}
-            >
+            >             
               <BiChevronLeft size={28} />
-              <span>Zein IDE</span>
+              <span>{t.zeinIDETitle}</span>
+              Zein IDE
             </motion.button>
           </Link>
         </div>
