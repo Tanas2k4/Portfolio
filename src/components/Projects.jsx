@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { BiLinkExternal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
+import zeinTeamPlannerImg from "../assets/zein-teamplanner.png";
+import zeinIdeImg from "../assets/zein-ide.png";
+import hutechIdeImg from "../assets/hutech-ide.png";
 
 const ScrollReveal = ({ children }) => {
   return (
@@ -119,7 +122,7 @@ const Projects = () => {
 
   const projectsData = [
     {
-      image: "./public/zein-teamplanner.png",
+      image: zeinTeamPlannerImg,
       title: "Zein Team Planner",
       descriptionKey: "forStudentTeamWork",
       technologies: [
@@ -131,14 +134,14 @@ const Projects = () => {
       link: "/home/zein-teamplanner",
     },
     {
-      image: "./public/zein-ide.png",
+      image: zeinIdeImg,
       title: "Zein IDE",
       descriptionKey: "forStudentLearnCode",
       technologies: ["Typescript", "TailwindCSS", "JavaScript"],
       link: "/home/zein-ide",
     },
     {
-      image: "./public/hutech-ide.png",
+      image: hutechIdeImg,
       title: "HUTECH IDE",
       descriptionKey: "forStudentLearnCode",
       technologies: ["Typescript", "TailwindCSS", "JavaScript"],

@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronLeft } from "react-icons/bi";
 import { useApp } from "../context/AppContext";
+import hutechIdeImg from "../assets/hutech-ide.png";
 
 const HutechIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
-  const { theme, t } = useApp(); // Thêm t để lấy translations
+  const { theme, t } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -104,7 +105,7 @@ const HutechIDE = () => {
         </p>
 
         <motion.img
-          src="./public/hutech-ide.png"
+          src={hutechIdeImg}
           alt="HUTECH IDE"
           className="w-full rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -175,38 +176,6 @@ const HutechIDE = () => {
           </div>
         </motion.div>
 
-        {/* <motion.div
-          className="flex gap-4 mt-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <a
-            href="#"
-            className={`px-6 py-3 rounded-lg transition-colors ${
-              theme === 'light'
-                ? 'bg-gray-800 text-white hover:bg-gray-700'
-                : 'bg-white text-black hover:bg-gray-200'
-            }`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.tryLiveDemo}
-          </a>
-          <a
-            href="#"
-            className={`border px-6 py-3 rounded-lg transition-colors ${
-              theme === 'light'
-                ? 'border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
-                : 'border-white text-white hover:bg-white hover:text-black'
-            }`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.viewSourceCode}
-          </a>
-        </motion.div> */}
-
         <div className={`flex justify-start items-center border-t pt-8 mt-8 ${
           theme === 'light' ? 'border-gray-300' : 'border-gray-600'
         }`}>
@@ -219,8 +188,7 @@ const HutechIDE = () => {
               transition={{ duration: 0.2 }}
             >             
               <BiChevronLeft size={28} />
-              <span>{t.zeinIDETitle}</span>
-              Zein IDE
+              <span>Zein IDE</span>
             </motion.button>
           </Link>
         </div>

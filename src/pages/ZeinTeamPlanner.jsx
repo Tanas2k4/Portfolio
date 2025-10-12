@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronRight } from "react-icons/bi";
 import { useApp } from "../context/AppContext";
+import zeinTeamPlannerImg from "../assets/zein-teamplanner.png";
 
 const ZeinTeamPlanner = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -107,7 +108,7 @@ const ZeinTeamPlanner = () => {
         </p>
 
         <motion.img
-          src="./public/zein-teamplanner.png"
+          src={zeinTeamPlannerImg}
           alt="Zein Team Planner"
           className="w-full rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}

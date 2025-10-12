@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import { useApp } from "../context/AppContext";
+import zeinIdeImg from "../assets/zein-ide.png";
 
 const ZeinIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -104,7 +105,7 @@ const ZeinIDE = () => {
         </p>
 
         <motion.img
-          src="/public/zein-ide.png"
+          src={zeinIdeImg}
           alt="Zein IDE"
           className="w-full rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -219,12 +220,11 @@ const ZeinIDE = () => {
               transition={{ duration: 0.2 }}
             >
               <BiChevronLeft size={28} />
-              <span>{t.zeinTeamPlannerTitle}</span>
-              Zein Team Planner
+              <span>Zein Team Planner</span>
             </motion.button>
           </Link>
 
-          <Link to="./home/hutech-ide">
+          <Link to="/home/hutech-ide">
             <motion.button
               className={`flex items-center gap-2 transition-colors text-lg ${
                 theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'
@@ -232,8 +232,7 @@ const ZeinIDE = () => {
               whileHover={{ x: 5 }}
               transition={{ duration: 0.2 }}
             >
-              <span>{t.hutechIDETitle}</span>
-              Hutech IDE
+              <span>Hutech IDE</span>
               <BiChevronRight size={28} />
             </motion.button>
           </Link>
