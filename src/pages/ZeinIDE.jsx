@@ -224,7 +224,7 @@ const ZeinIDE = () => {
             </motion.button>
           </Link>
 
-          <Link to="/home/hutech-ide">
+          <Link to="./home/hutech-ide">
             <motion.button
               className={`flex items-center gap-2 transition-colors text-lg ${
                 theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'

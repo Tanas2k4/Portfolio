@@ -104,7 +104,7 @@ const HutechIDE = () => {
         </p>
 
         <motion.img
-          src="/public/hutech-ide.png"
+          src="./public/hutech-ide.png"
           alt="HUTECH IDE"
           className="w-full rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}

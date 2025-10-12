@@ -25,7 +25,7 @@ function AppContent() {
   const { theme } = useApp();
 
   return (
-    <Router>
+    <Router basename={import.meta.env.DEV ? "/" : "/Portfolio"}>
       <ScrollToTop />
       <div className={`fixed -z-10 min-h-screen w-full ${
         theme === 'light' 

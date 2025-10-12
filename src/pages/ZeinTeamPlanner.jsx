@@ -107,7 +107,7 @@ const ZeinTeamPlanner = () => {
         </p>
 
         <motion.img
-          src="/public/zein-teamplanner.png"
+          src="./public/zein-teamplanner.png"
           alt="Zein Team Planner"
           className="w-full rounded-2xl shadow-2xl"
           initial={{ opacity: 0, scale: 0.9 }}

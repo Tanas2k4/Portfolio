@@ -119,7 +119,7 @@ const Projects = () => {
 
   const projectsData = [
     {
-      image: "/public/zein-teamplanner.png",
+      image: "./public/zein-teamplanner.png",
       title: "Zein Team Planner",
       descriptionKey: "forStudentTeamWork",
       technologies: [
@@ -131,14 +131,14 @@ const Projects = () => {
       link: "/home/zein-teamplanner",
     },
     {
-      image: "/public/zein-ide.png",
+      image: "./public/zein-ide.png",
       title: "Zein IDE",
       descriptionKey: "forStudentLearnCode",
       technologies: ["Typescript", "TailwindCSS", "JavaScript"],
       link: "/home/zein-ide",
     },
     {
-      image: "/public/hutech-ide.png",
+      image: "./public/hutech-ide.png",
       title: "HUTECH IDE",
       descriptionKey: "forStudentLearnCode",
       technologies: ["Typescript", "TailwindCSS", "JavaScript"],
