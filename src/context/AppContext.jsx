@@ -74,6 +74,7 @@ export const AppProvider = ({ children }) => {
       location: "2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)",
       introDescription: "I'm a final-year Software Engineering student focused on .NET/.NET Core and eager to explore new technologies.",
       goToGithub: "Go to GitHub",
+      downloadCV: "Download CV",
       // Tech
       technologies: "Technologies",
       // Projects
@@ -144,6 +145,7 @@ export const AppProvider = ({ children }) => {
       location: "2004, Bến Tre, Việt Nam | Đang học tại Đại học HUTECH (2022 - Hiện tại)",
       introDescription: "Tôi là sinh viên năm cuối ngành Công nghệ hần mềm, quen với .NET nhưng mà đang crush Spring.",
       goToGithub: "Đến GitHub",
+      downloadCV: "Tải CV",
       // Tech
       technologies: "Công nghệ",
       // Projects

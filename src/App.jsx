@@ -10,6 +10,7 @@ import ZeinIDE from "./pages/ZeinIDE";
 import HutechIDE from "./pages/HutechIDE";
 import Footer from "./components/Footer";
 import { AppProvider, useApp } from "./context/AppContext";
+import Blog from "./components/Blog";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -39,6 +40,7 @@ function AppContent() {
             <Intro />
             <Tech />
             <Projects />
+            <Blog />
             <Contact />
 
           </main>

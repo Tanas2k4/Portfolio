@@ -64,7 +64,7 @@ const Navbar = () => {
             {t.projects}
           </li>
         </a>
-        <a href="#Blog" className="nav-link">
+        <a href="#blog" className="nav-link">
           <li
             className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
               theme === "light" ? "text-gray-700" : "text-gray-300"
