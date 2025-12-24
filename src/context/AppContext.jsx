@@ -43,7 +43,7 @@ export const AppProvider = ({ children }) => {
 
   // Apply theme to document
   useEffect(() => {
-    if (theme === "light") {
+  if (theme === "light") {
       document.documentElement.classList.add("light-mode");
     } else {
       document.documentElement.classList.remove("light-mode");
@@ -56,6 +56,7 @@ export const AppProvider = ({ children }) => {
       home: "Home",
       tech: "Tech",
       projects: "Projects",
+      blog: "Blog",
       contact: "Contact",
       switchToVietnamese: "Switch to Vietnamese",
       switchToEnglish: "Switch to English",
@@ -80,6 +81,8 @@ export const AppProvider = ({ children }) => {
       forStudentTeamWork: "for student team work",
       forStudentLearnCode: "for student learn code",
       viewDetails: "View Details",
+      //blog
+      myBlog: "My Blog",
       // Contact
       getInTouch: "Get in touch",
       contactDescription: "If you want to contact, send me an E-mail through this button and i'll respond Whenever I can",
@@ -123,6 +126,7 @@ export const AppProvider = ({ children }) => {
       home: "Trang chủ",
       tech: "Công nghệ",
       projects: "Dự án",
+      blog: "Blog",
       contact: "Liên hệ",
       switchToVietnamese: "Chuyển sang tiếng Việt",
       switchToEnglish: "Chuyển sang tiếng Anh",
@@ -147,6 +151,8 @@ export const AppProvider = ({ children }) => {
       forStudentTeamWork: "dành cho làm việc nhóm sinh viên",
       forStudentLearnCode: "Dành cho sinh viên học lập trình",
       viewDetails: "Xem chi tiết",
+      //blog
+      myBlog: "Blog của tôi",
       // Contact
       getInTouch: "Liên hệ với tôi",
       contactDescription: "Nếu bạn muốn liên hệ, hãy gửi e-mail cho tôi qua nút bên dưới và tôi sẽ phản hồi sớm nhất có thể",
