@@ -44,9 +44,14 @@ const Intro = () => {
 
             {/* Location */}
             <p
-              className={`text-base sm:text-lg font-body font-light flex items-center gap-2 ${
-                theme === "light" ? "text-gray-600" : "text-gray-300"
-              }`}
+              className={`col-span-1 lg:col-span-2
+                flex items-center gap-2
+                text-sm sm:text-base lg:text-lg
+                font-body font-light
+                whitespace-normal lg:whitespace-nowrap
+                ${
+                  theme === "light" ? "text-gray-600" : "text-gray-300"
+                }`}
             >
               {t.location}
             </p>

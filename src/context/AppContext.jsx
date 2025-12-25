@@ -72,7 +72,7 @@ export const AppProvider = ({ children }) => {
       helloIm: "Hello, I'm",
       myname: "TRAN TRONG TAN",
       location: "2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)",
-      introDescription: "I'm a final-year Software Engineering student focused on .NET/.NET Core and eager to explore new technologies.",
+      introDescription: "I’m a final-year Software Engineering student with experience in .NET (1+ years) and Spring Boot (6 months), gained through academic team projects and personal applications. I have developed strong backend knowledge and have basic understanding of ERP, CRM, and FinTech domains, and I am eager to further improve my skills and become more proficient in .NET and Spring Boot.",
       goToGithub: "Go to GitHub",
       downloadCV: "Download CV",
       // Tech
@@ -143,7 +143,7 @@ export const AppProvider = ({ children }) => {
       helloIm: "Xin chào",
       myname: "Trần Trọng Tấn",
       location: "2004, Bến Tre, Việt Nam | Đang học tại Đại học HUTECH (2022 - Hiện tại)",
-      introDescription: "Tôi là sinh viên năm cuối ngành Công nghệ hần mềm, quen với .NET nhưng mà đang crush Spring.",
+      introDescription: "Tôi là sinh viên năm cuối ngành Kỹ thuật Phần mềm, có hơn 1 năm kinh nghiệm với .NET và 6 tháng với Spring Boot, tích lũy thông qua các dự án nhóm và dự án cá nhân trong quá trình học tập. Tôi có nền tảng vững về backend, hiểu biết cơ bản về các hệ thống ERP, CRM cũng như lĩnh vực FinTech, và mong muốn tiếp tục phát triển, nâng cao chuyên môn để thành thạo hơn nữa với .NET và Spring Boot.",
       goToGithub: "Đến GitHub",
       downloadCV: "Tải CV",
       // Tech

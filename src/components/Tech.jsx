@@ -6,7 +6,7 @@ import {
   BiLogoTailwindCss,
   BiLogoTypescript,
 } from "react-icons/bi";
-import { SiDotnet } from "react-icons/si";
+import { SiRuby, SiDotnet } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useApp } from "../context/AppContext";
 
@@ -40,9 +40,9 @@ const Tech = () => {
       light: "text-green-600",
     },
     {
-      Icon: BiLogoFlutter,
-      dark: "text-blue-500",
-      light: "text-blue-700",
+      Icon: SiRuby,
+      dark: "text-[#CC342D] scale-80",
+      light: "text-[#CC342D] scale-80",
     },
     {
       Icon: BiLogoTailwindCss,
@@ -55,7 +55,9 @@ const Tech = () => {
     <div
       id="tech"
       className="flex flex-col items-center justify-center min-h-screen w-screen gap-12 p-8 box-border md:gap-16"
-      style={{ fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit" }}
+      style={{
+        fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
+      }}
     >
       <motion.h1
         variants={variants}

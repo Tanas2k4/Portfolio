@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronLeft } from "react-icons/bi";
 import { useApp } from "../context/AppContext";
 import hutechIdeImg from "../assets/hutech-ide.png";
+import hutechIdeContr from "../assets/hutechIDEcontr.png";
 
 const HutechIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -12,187 +13,303 @@ const HutechIDE = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
       setActiveSection(sectionId);
     }
   };
 
-  return (
-    <div className="min-h-screen w-full flex flex-col items-center px-4 md:px-8 lg:px-16 py-24">
-      <motion.div
-        className="w-full max-w-[1000px] flex flex-col gap-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <Link to="/home">
-          <motion.button
-            className={`flex items-center gap-2 transition-colors ${
-              theme === 'light' 
-                ? 'text-gray-800 hover:text-gray-600' 
-                : 'text-white hover:text-gray-300'
-            }`}
-            whileHover={{ x: -5 }}
-            transition={{ duration: 0.2 }}
-          >
-            <BiArrowBack size={19} />
-            <span>{t.backToHome}</span>
-          </motion.button>
-        </Link>
+  // Update active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["overview", "tech-stack", "key-features"];
+      const scrollPosition = window.scrollY + 150;
 
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const techColors = {
+    "TypeScript": {
+      light: "bg-sky-600 text-white hover:bg-sky-700",
+      dark: "bg-sky-600 text-black hover:bg-sky-500",
+    },
+    "TailwindCSS": {
+      light: "bg-cyan-600 text-white hover:bg-cyan-700",
+      dark: "bg-cyan-500 text-black hover:bg-cyan-400",
+    },
+    "JavaScript": {
+      light: "bg-yellow-500 text-white hover:bg-yellow-600",
+      dark: "bg-yellow-500 text-black hover:bg-yellow-400",
+    },
+    "NodeJs": {
+      light: "bg-green-700 text-white hover:bg-green-800",
+      dark: "bg-green-700 text-black hover:bg-green-600",
+    },
+    "Electron": {
+      light: "bg-purple-400 text-white hover:bg-purple-500",
+      dark: "bg-purple-300 text-black hover:bg-purple-200",
+    },
+    "Theia Extension":{
+      light: "bg-gray-800 text-white hover:bg-gray-900",
+      dark: "bg-gray-200 text-black hover:bg-gray-100",
+    }
+  }; 
+
+
+  const isDark = theme === 'dark';
+
+  return (
+    <div className="min-h-screen w-full">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+
+        {/* Hero Section */}
         <motion.div
           id="overview"
-          className="flex flex-col gap-4"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <h1 className={`text-4xl md:text-6xl font-light ${
-            theme === 'light' ? 'text-gray-800' : 'text-white'
-          }`}>
-            HUTECH IDE
-          </h1>
-          <p className={`text-xl ${
-            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
-          }`}>
-            {t.hutechIDESubtitle}
-          </p>
-        </motion.div>
-
-        <div className={`border-b pb-2 ${
-          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
-        }`}>
-          <ul className="flex gap-6 overflow-x-auto">
-            <li>
-              <button
-                onClick={() => scrollToSection("overview")}
-                className={`text-sm whitespace-nowrap transition-colors ${
-                  activeSection === "overview"
-                    ? theme === 'light'
-                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
-                      : "text-white font-semibold border-b-2 border-white pb-2"
-                    : theme === 'light'
-                      ? "text-gray-500 hover:text-gray-700"
-                      : "text-gray-400 hover:text-gray-200"
-                }`}
-              >
-                {t.overview}
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => scrollToSection("tech-stack")}
-                className={`text-sm whitespace-nowrap transition-colors ${
-                  activeSection === "tech-stack"
-                    ? theme === 'light'
-                      ? "text-gray-800 font-semibold border-b-2 border-gray-800 pb-2"
-                      : "text-white font-semibold border-b-2 border-white pb-2"
-                    : theme === 'light'
-                      ? "text-gray-500 hover:text-gray-700"
-                      : "text-gray-400 hover:text-gray-200"
-                }`}
-              >
-                {t.techStack}
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <p className={`leading-relaxed ${
-          theme === 'light' ? 'text-gray-600' : 'text-gray-300'
-        }`}>
-          {t.hutechIDEDesc}
-        </p>
-
-        <motion.img
-          src={hutechIdeImg}
-          alt="HUTECH IDE"
-          className="w-full rounded-2xl shadow-2xl"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        />
-
-        <motion.div
-          className={`flex flex-col gap-6 ${
-            theme === 'light' ? 'text-gray-600' : 'text-gray-300'
-          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-12"
         >
-          <div>
-            <h2 className={`text-2xl font-semibold mb-4 ${
-              theme === 'light' ? 'text-gray-800' : 'text-white'
+          <div className="flex flex-col gap-4">
+            <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight ${
+              isDark 
+                ? 'text-white' 
+                : 'text-gray-900'
             }`}>
-              {t.keyFeatures}
-            </h2>
-            <ul className="list-disc list-inside space-y-2 leading-relaxed">
-              <li>{t.zeinIDEFeature1}</li>
-              <li>{t.zeinIDEFeature2}</li>
-              <li>{t.zeinIDEFeature3}</li>
-              <li>{t.zeinIDEFeature4}</li>
-              <li>{t.zeinIDEFeature5}</li>
-            </ul>
+              HUTECH IDE
+            </h1>
+            <p className={`text-lg sm:text-xl font-light ${
+              isDark ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              {t.hutechIDESubtitle}
+            </p>
           </div>
         </motion.div>
 
+        {/* Navigation Tabs */}
         <motion.div
-          id="tech-stack"
-          className="flex flex-col gap-4 scroll-mt-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className={`border-b mb-12 ${
+            isDark ? 'border-gray-800' : 'border-gray-200'
+          }`}
+        >
+          <nav className="flex gap-8 overflow-x-auto">
+            {[
+              { id: "overview", label: t.overview },
+              { id: "tech-stack", label: t.techStack },
+              { id: "key-features", label: t.keyFeatures }           
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`relative py-4 text-sm font-medium whitespace-nowrap transition-colors ${
+                  activeSection === item.id
+                    ? isDark ? 'text-white' : 'text-gray-900'
+                    : isDark ? 'text-gray-500 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {item.label}
+                {activeSection === item.id && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                      isDark ? 'bg-white' : 'bg-gray-900'
+                    }`}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </button>
+            ))}
+          </nav>
+        </motion.div>
+
+        {/* Description */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-12"
         >
-          <h2 className={`text-2xl font-semibold ${
-            theme === 'light' ? 'text-gray-800' : 'text-white'
+          <p className={`text-base sm:text-lg leading-relaxed ${
+            isDark ? 'text-gray-300' : 'text-gray-700'
+          }`}>
+            {t.hutechIDEDesc}
+          </p>
+        </motion.div>
+
+        {/* Technologies used */}
+        <motion.div
+          id="tech-stack"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+        >
+          <h2 className={`text-2xl sm:text-3xl font-bold mb-6 ${
+            isDark ? 'text-white' : 'text-gray-900'
           }`}>
             {t.technologiesUsed}
           </h2>
-          <div className="flex flex-wrap gap-3">
-            {["Typescript", "TailwindCSS", "JavaScript"].map((tech, index) => (
+          
+          <div className="flex flex-wrap gap-3 mb-10">
+            {["TypeScript", "TailwindCSS", "JavaScript", "NodeJs", "Electron", "Theia Extension"].map((tech) => (
               <span
-                key={index}
-                className={`rounded-lg px-4 py-2 ${
-                  theme === 'light' ? 'bg-white text-gray-800' : 'bg-gray-800 text-white'
+                key={tech}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ring-1 ${
+                  isDark
+                    ? techColors[tech].dark
+                    : techColors[tech].light
                 }`}
               >
                 {tech}
               </span>
             ))}
           </div>
+        </motion.div>
 
-          <div className="mt-4">
-            <h3 className={`text-2xl font-semibold mb-3 ${
-              theme === 'light' ? 'text-gray-800' : 'text-white'
+        {/* Images */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="space-y-8 mb-12"
+        >
+          <div className={`relative rounded-2xl overflow-hidden ring-1 ${
+            isDark ? 'ring-gray-800' : 'ring-gray-200'
+          }`}>
+            <img
+              src={hutechIdeImg}
+              alt="HUTECH IDE Interface"
+              className="w-full h-auto"
+            />
+          </div>
+          
+          <div className={`relative rounded-2xl overflow-hidden ring-1 ${
+            isDark ? 'ring-gray-800' : 'ring-gray-200'
+          }`}>
+            <img
+              src={hutechIdeContr}
+              alt="HUTECH IDE Controller"
+              className="w-full h-auto"
+            />
+          </div>
+        </motion.div>
+
+        {/* Key Features */}
+        <motion.section
+          id="key-features"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className={`rounded-2xl p-6 sm:p-8 mb-12 ring-1 scroll-mt-32 ${
+            isDark ? 'ring-gray-800' : 'ring-gray-400'
+          }`}
+        >
+          <h2 className={`text-2xl sm:text-3xl font-bold mb-6 ${
+            isDark ? 'text-white' : 'text-gray-900'
+          }`}>
+            {t.keyFeatures}
+          </h2>
+          <ul className="space-y-4">
+            {[
+              t.zeinIDEFeature1,
+              t.zeinIDEFeature2,
+              t.zeinIDEFeature3,
+              t.zeinIDEFeature4,
+              t.zeinIDEFeature5
+            ].map((feature, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-3"
+              >
+                <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium mt-0.5 ${
+                  isDark 
+                    ? 'bg-gray-800 text-gray-300' 
+                    : 'bg-gray-300 text-gray-700'
+                }`}>
+                  {index + 1}
+                </span>
+                <span className={`text-base leading-relaxed ${
+                  isDark ? 'text-gray-300' : 'text-gray-700'
+                }`}>
+                  {feature}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </motion.section>
+
+        {/* Tech Stack */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="scroll-mt-32 mb-12"
+        >        
+          <div className={`rounded-2xl p-6 sm:p-8 ring-1 ${
+            isDark ? 'ring-gray-800' : 'ring-gray-400'
+          }`}>
+            <h3 className={`text-xl sm:text-2xl font-bold mb-4 ${
+              isDark ? 'text-white' : 'text-gray-900'
             }`}>
               {t.overallSummary}
             </h3>
-            <p className={`leading-relaxed ${
-              theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+            <p className={`text-base leading-relaxed ${
+              isDark ? 'text-gray-300' : 'text-gray-700'
             }`}>
               {t.hutechIDESummary}
             </p>
           </div>
-        </motion.div>
+        </motion.section>
 
-        <div className={`flex justify-start items-center border-t pt-8 mt-8 ${
-          theme === 'light' ? 'border-gray-300' : 'border-gray-600'
-        }`}>
+        {/* Navigation Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className={`flex items-center border-t pt-8 ${
+            isDark ? 'border-gray-800' : 'border-gray-400'
+          }`}
+        >
           <Link to="/home/zein-ide">
             <motion.button
-              className={`flex items-center gap-2 transition-colors text-lg ${
-                theme === 'light' ? 'text-gray-800 hover:text-gray-600' : 'text-white hover:text-gray-300'
+              className={`group flex items-center gap-2 text-base font-medium transition-colors ${
+                isDark 
+                  ? 'text-gray-400 hover:text-white' 
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
-              whileHover={{ x: -5 }}
-              transition={{ duration: 0.2 }}
-            >             
-              <BiChevronLeft size={28} />
+              whileHover={{ x: -4 }}
+            >
+              <BiChevronLeft 
+                className="transition-transform group-hover:-translate-x-1" 
+                size={28} 
+              />
               <span>Zein IDE</span>
             </motion.button>
           </Link>
-        </div>
-      </motion.div>
+        </motion.div>
+
+      </div>
     </div>
   );
 };
