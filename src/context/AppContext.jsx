@@ -70,11 +70,12 @@ export const AppProvider = ({ children }) => {
   
       // Intro
       helloIm: "Hello, I'm",
-      myname: "TRAN TRONG TAN",
+      myname: "TRAN TAN",
       location: "2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)",
       introDescription: "I’m a final-year Software Engineering student with experience in .NET (1+ years) and Spring Boot (6 months), gained through academic team projects and personal applications. I have developed strong backend knowledge and have basic understanding of ERP, CRM, and FinTech domains, and I am eager to further improve my skills and become more proficient in .NET and Spring Boot.",
       goToGithub: "Go to GitHub",
       downloadCV: "Download CV",
+      connect: "Connect" ,
       // Tech
       technologies: "Technologies",
       // Projects
@@ -84,6 +85,8 @@ export const AppProvider = ({ children }) => {
       viewDetails: "View Details",
       //blog
       myBlog: "My Blog",
+      viewAllPosts: "View All Posts",
+      readMore: "Read more",
       // Contact
       getInTouch: "Get in touch",
       contactDescription: "If you want to contact, send me an E-mail through this button and i'll respond Whenever I can",
@@ -141,11 +144,12 @@ export const AppProvider = ({ children }) => {
       
       // Intro
       helloIm: "Xin chào",
-      myname: "Trần Trọng Tấn",
+      myname: "TRẦN TẤN",
       location: "2004, Bến Tre, Việt Nam | Đang học tại Đại học HUTECH (2022 - Hiện tại)",
       introDescription: "Tôi là sinh viên năm cuối ngành Kỹ thuật Phần mềm, có hơn 1 năm kinh nghiệm với .NET và 6 tháng với Spring Boot, tích lũy thông qua các dự án nhóm và dự án cá nhân trong quá trình học tập. Tôi có nền tảng vững về backend, hiểu biết cơ bản về các hệ thống ERP, CRM cũng như lĩnh vực FinTech, và mong muốn tiếp tục phát triển, nâng cao chuyên môn để thành thạo hơn nữa với .NET và Spring Boot.",
       goToGithub: "Đến GitHub",
       downloadCV: "Tải CV",
+      connect: "Kết nối" ,
       // Tech
       technologies: "Công nghệ",
       // Projects
@@ -155,6 +159,8 @@ export const AppProvider = ({ children }) => {
       viewDetails: "Xem chi tiết",
       //blog
       myBlog: "Blog của tôi",
+      viewAllPosts: "Xem tất cả",
+      readMore: "Xem thêm",
       // Contact
       getInTouch: "Liên hệ với tôi",
       contactDescription: "Nếu bạn muốn liên hệ, hãy gửi e-mail cho tôi qua nút bên dưới và tôi sẽ phản hồi sớm nhất có thể",

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { BiArrowBack, BiChevronLeft } from "react-icons/bi";
-import { useApp } from "../context/AppContext";
-import hutechIdeImg from "../assets/hutech-ide.png";
-import hutechIdeContr from "../assets/hutechIDEcontr.png";
+import { BiArrowBack, BiChevronRight } from "react-icons/bi";
+import { useApp } from "../../context/AppContext";
+import zeinTeamPlannerImg from "../../assets/zein-teamplanner.png";
 
-const HutechIDE = () => {
+const ZeinTeamPlanner = () => {
   const [activeSection, setActiveSection] = useState("overview");
-  const { theme, t } = useApp();
+  const { theme, language, t } = useApp();
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -43,42 +42,45 @@ const HutechIDE = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+  // Connect scroll event
+  window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const techColors = {
-    "TypeScript": {
-      light: "bg-sky-600 text-white hover:bg-sky-700",
-      dark: "bg-sky-600 text-black hover:bg-sky-500",
+    "ASP.Net Core": {
+      light: "bg-purple-700 text-white ring-purple-700 hover:bg-purple-600",
+      dark: "bg-purple-700 text-black ring-purple-700 hover:bg-purple-600 ",
     },
-    "TailwindCSS": {
-      light: "bg-cyan-600 text-white hover:bg-cyan-700",
-      dark: "bg-cyan-500 text-black hover:bg-cyan-400",
+    "Entity Framework": {
+      light: "bg-blue-700 text-white ring-blue-700 hover:bg-blue-800",
+      dark: "bg-blue-600 text-black ring-blue-600 hover:bg-blue-500",
     },
-    "JavaScript": {
-      light: "bg-yellow-500 text-white hover:bg-yellow-600",
-      dark: "bg-yellow-500 text-black hover:bg-yellow-400",
+    "Bootstrap 5": {
+      light: "bg-indigo-600 text-white ring-indigo-600 hover:bg-indigo-700",
+      dark: "bg-indigo-600 text-black ring-indigo-600 hover:bg-indigo-500",
     },
-    "NodeJs": {
-      light: "bg-green-700 text-white hover:bg-green-800",
-      dark: "bg-green-700 text-black hover:bg-green-600",
+    "SQL Server": {
+      light: "bg-red-700 text-white ring-red-700 hover:bg-red-800",
+      dark: "bg-red-700 text-black ring-red-700 hover:bg-red-600",
     },
-    "Electron": {
-      light: "bg-purple-400 text-white hover:bg-purple-500",
-      dark: "bg-purple-300 text-black hover:bg-purple-200",
+    "HTML":{
+      light: "bg-orange-500 text-white ring-orange-500 hover:bg-orange-600",
+      dark: "bg-orange-400 text-black ring-orange-400 hover:bg-orange-300",
     },
-    "Theia Extension":{
-      light: "bg-gray-800 text-white hover:bg-gray-900",
-      dark: "bg-gray-200 text-black hover:bg-gray-100",
+    "SignalR":{
+      light: "bg-gray-500 text-white ring-gray-500 hover:bg-gray-600",
+      dark: "bg-gray-400 text-black ring-gray-400 hover:bg-gray-300",
     }
-  }; 
-
+  };
 
   const isDark = theme === 'dark';
 
   return (
-    <div className="min-h-screen w-full">
+    <div 
+      className="min-h-screen w-full"
+      style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
 
         {/* Hero Section */}
@@ -95,12 +97,12 @@ const HutechIDE = () => {
                 ? 'text-white' 
                 : 'text-gray-900'
             }`}>
-              HUTECH IDE
+              Zein Team Planner
             </h1>
             <p className={`text-lg sm:text-xl font-light ${
               isDark ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              {t.hutechIDESubtitle}
+              {t.zeinTeamPlannerSubtitle}
             </p>
           </div>
         </motion.div>
@@ -118,7 +120,7 @@ const HutechIDE = () => {
             {[
               { id: "overview", label: t.overview },
               { id: "tech-stack", label: t.techStack },
-              { id: "key-features", label: t.keyFeatures }           
+              { id: "key-features", label: t.keyFeatures }             
             ].map((item) => (
               <button
                 key={item.id}
@@ -154,16 +156,17 @@ const HutechIDE = () => {
           <p className={`text-base sm:text-lg leading-relaxed ${
             isDark ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            {t.hutechIDEDesc}
+            {t.zeinTeamPlannerDesc}
           </p>
         </motion.div>
 
-        {/* Technologies used */}
+        {/* Technologies Used */}
         <motion.div
           id="tech-stack"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
+          className="mb-12"
         >
           <h2 className={`text-2xl sm:text-3xl font-bold mb-6 ${
             isDark ? 'text-white' : 'text-gray-900'
@@ -172,7 +175,7 @@ const HutechIDE = () => {
           </h2>
           
           <div className="flex flex-wrap gap-3 mb-10">
-            {["TypeScript", "TailwindCSS", "JavaScript", "NodeJs", "Electron", "Theia Extension"].map((tech) => (
+            {["ASP.Net Core", "Entity Framework", "Bootstrap 5", "SQL Server", "HTML", "SignalR"].map((tech) => (
               <span
                 key={tech}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ring-1 ${
@@ -186,30 +189,20 @@ const HutechIDE = () => {
             ))}
           </div>
         </motion.div>
-
-        {/* Images */}
+          
+        {/* Image */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="space-y-8 mb-12"
+          className="mb-12"
         >
           <div className={`relative rounded-2xl overflow-hidden ring-1 ${
             isDark ? 'ring-gray-800' : 'ring-gray-200'
           }`}>
             <img
-              src={hutechIdeImg}
-              alt="HUTECH IDE Interface"
-              className="w-full h-auto"
-            />
-          </div>
-          
-          <div className={`relative rounded-2xl overflow-hidden ring-1 ${
-            isDark ? 'ring-gray-800' : 'ring-gray-200'
-          }`}>
-            <img
-              src={hutechIdeContr}
-              alt="HUTECH IDE Controller"
+              src={zeinTeamPlannerImg}
+              alt="Zein Team Planner Interface"
               className="w-full h-auto"
             />
           </div>
@@ -232,11 +225,13 @@ const HutechIDE = () => {
           </h2>
           <ul className="space-y-4">
             {[
-              t.zeinIDEFeature1,
-              t.zeinIDEFeature2,
-              t.zeinIDEFeature3,
-              t.zeinIDEFeature4,
-              t.zeinIDEFeature5
+              t.zeinTeamPlannerFeature1,
+              t.zeinTeamPlannerFeature2,
+              t.zeinTeamPlannerFeature3,
+              t.zeinTeamPlannerFeature4,
+              t.zeinTeamPlannerFeature5,
+              t.zeinTeamPlannerFeature6,
+              t.zeinTeamPlannerFeature7
             ].map((feature, index) => (
               <li
                 key={index}
@@ -259,13 +254,13 @@ const HutechIDE = () => {
           </ul>
         </motion.section>
 
-        {/* Tech Stack */}
+        {/* Overall Summary */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="scroll-mt-32 mb-12"
-        >        
+        >
           <div className={`rounded-2xl p-6 sm:p-8 ring-1 ${
             isDark ? 'ring-gray-800' : 'ring-gray-400'
           }`}>
@@ -277,17 +272,48 @@ const HutechIDE = () => {
             <p className={`text-base leading-relaxed ${
               isDark ? 'text-gray-300' : 'text-gray-700'
             }`}>
-              {t.hutechIDESummary}
+              {t.zeinTeamPlannerSummary}
             </p>
           </div>
         </motion.section>
+
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="flex flex-wrap gap-4 mb-12"
+        >
+          <a
+            href="#"
+            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              isDark
+                ? 'bg-white text-gray-900 hover:bg-gray-100'
+                : 'bg-gray-900 text-white hover:bg-gray-800'
+            }`}
+          >
+            {t.tryLiveDemo}
+          </a>
+          <a
+            href="https://github.com/Tanas2k4/ZEIN_TeamPlanner"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ring-1 ${
+              isDark
+                ? 'ring-gray-700 text-gray-300 hover:bg-gray-800'
+                : 'ring-gray-400 text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            {t.viewSourceCode}
+          </a>
+        </motion.div>
 
         {/* Navigation Footer */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className={`flex items-center border-t pt-8 ${
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className={`flex items-center justify-end border-t pt-8 ${
             isDark ? 'border-gray-800' : 'border-gray-400'
           }`}
         >
@@ -298,13 +324,13 @@ const HutechIDE = () => {
                   ? 'text-gray-400 hover:text-white' 
                   : 'text-gray-600 hover:text-gray-900'
               }`}
-              whileHover={{ x: -4 }}
+              whileHover={{ x: 4 }}
             >
-              <BiChevronLeft 
-                className="transition-transform group-hover:-translate-x-1" 
+              <span>Zein IDE</span>
+              <BiChevronRight 
+                className="transition-transform group-hover:translate-x-1" 
                 size={28} 
               />
-              <span>Zein IDE</span>
             </motion.button>
           </Link>
         </motion.div>
@@ -314,4 +340,4 @@ const HutechIDE = () => {
   );
 };
 
-export default HutechIDE;
+export default ZeinTeamPlanner;

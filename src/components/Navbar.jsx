@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-10 flex w-full items-center justify-between border-b p-6 backdrop-blur-md md:justify-evenly ${
+      className={`fixed top-0 z-[100] flex w-full items-center justify-between border-b p-6 backdrop-blur-md md:justify-evenly ${
         theme === "light"
           ? "border-gray-300 bg-white/70 text-gray-800"
           : "border-gray-600 bg-neutral-950/70 text-white"
@@ -103,7 +103,7 @@ const Navbar = () => {
         {/* Settings Dropdown */}
         {isSettingsOpen && (
           <div
-            className={`absolute right-0 top-12 w-64 border rounded-lg p-4 shadow-xl backdrop-blur-md ${
+            className={`absolute right-0 top-12 w-64 border rounded-lg p-4 shadow-xl backdrop-blur-md z-[110] ${
               theme === "light"
                 ? "bg-white/95 border-gray-300"
                 : "bg-neutral-900/95 border-gray-700"

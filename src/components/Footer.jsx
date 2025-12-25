@@ -1,6 +1,6 @@
 import { BsFacebook, BsLinkedin, BsMailbox } from "react-icons/bs";
 import { useApp } from "../context/AppContext";
-import { SiMailboxdotorg, SiZalando, SiZalo } from "react-icons/si";
+import { SiZalo } from "react-icons/si";
 import { RiMailLine } from "react-icons/ri";
 
 const Footer = () => {
@@ -20,10 +20,10 @@ const Footer = () => {
             <p className="text-gray-400 text-xs mt-1">
               {t.designed}
             </p>
-            <p className="text-sm text-gray-300 mt-1">
+            <a href="mailto:tt.tan25204@gmail.com" className="text-sm text-gray-300 mt-1">
               <RiMailLine size={17} className="inline-block mr-2 mb-1" />
               tt.tan25204@gmail.com
-            </p>
+            </a>
           </div>
 
           {/* Social Links */}
@@ -34,14 +34,6 @@ const Footer = () => {
               className=" text-gray-300 opacity-70 hover:text-white hover:opacity-100 transition-all duration-300 "
             >
               <SiZalo size={30} />
-            </a>
-            <a
-              href="https://www.facebook.com/tran.tan.677008/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 opacity-70 hover:text-white hover:opacity-100 transition-all duration-300"
-            >
-              <BsFacebook size={30} />
             </a>
             <a
               href="https://www.linkedin.com/in/t%E1%BA%A5n-tr%E1%BA%A7n-78b8b5379/"

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { BsDownload, BsGithub } from "react-icons/bs";
+import { BsDownload, BsGithub, BsLinkedin } from "react-icons/bs";
+import { FiAward, FiTrendingUp } from "react-icons/fi";
 import { useApp } from "../context/AppContext";
+import { HiChatBubbleLeftRight } from "react-icons/hi2";
 import avatarIntro from "../assets/avatar.JPEG";
 const Intro = () => {
   const { theme, language, t } = useApp();
@@ -20,10 +22,14 @@ const Intro = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="flex flex-col gap-6 order-2 lg:order-1"
+            className="
+              flex flex-col items-center text-center
+              gap-6
+              order-2 lg:order-1
+            "
           >
             {/* Header */}
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center">
               <h1
                 className={`text-2xl sm:text-3xl font-heading font-normal leading-tight ${
                   theme === "light" ? "text-gray-600" : "text-gray-400"
@@ -31,57 +37,46 @@ const Intro = () => {
               >
                 {t.helloIm}
               </h1>
+
               <h2
-                className={`text-4xl sm:text-5xl lg:text-6xl xl:text-6xl font-heading font-extrabold leading-tight mt-2 ${
-                  theme === "light"
-                    ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent"
-                    : "bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent"
-                }`}
+                className={`text-6xl sm:text-5xl lg:text-xl xl:text-7xl font-heading font-extrabold mt-1 leading-tight `}
               >
-                {t.myname}
+                <span
+                  className={`
+                    inline-block
+                    pt-3
+                    ${
+                      theme === "light"
+                        ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent"
+                        : "bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent"
+                    }`}
+                >
+                  {t.myname}
+                </span>
               </h2>
+
+
             </div>
-
-            {/* Location */}
-            <p
-              className={`col-span-1 lg:col-span-2
-                flex items-center gap-2
-                text-sm sm:text-base lg:text-lg
-                font-body font-light
-                whitespace-normal lg:whitespace-nowrap
-                ${
-                  theme === "light" ? "text-gray-600" : "text-gray-300"
-                }`}
-            >
-              {t.location}
-            </p>
-
-            {/* Description */}
-            <p
-              className={`text-sm sm:text-base font-body font-normal leading-relaxed max-w-xl ${
-                theme === "light" ? "text-gray-600" : "text-gray-300"
-              }`}
-            >
-              {t.introDescription}
-            </p>
-
-            {/* CTA Button */}
-            <div className="flex gap-4">
-              {/* GitHub */}
+            
+            <div className="flex flex-wrap justify-center gap-4 mt-2">
+              
+              {/* Hire Me */}
               <motion.a
-                href="https://github.com/TanAs2k4"
+                href="https://zalo.me/0363337511"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg ${
-                  theme === "light"
-                    ? "bg-gray-900 text-white hover:bg-gray-800 hover:shadow-xl"
-                    : "bg-white text-gray-900 hover:bg-gray-100 hover:shadow-2xl"
-                }`}
-              >
-                <BsGithub size={20} />
-                {t.goToGithub}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-full 
+                  font-medium transition-all duration-300 shadow-lg
+                  ${
+                    theme === "light"
+                      ? "bg-gray-900 text-white hover:bg-gray-800 hover:shadow-xl"
+                      : "bg-gray-100 text-black hover:bg-gray-200 hover:shadow-2xl"
+                  }`}
+              >      
+                <HiChatBubbleLeftRight size={20} />       
+                {t.connect}                
               </motion.a>
 
               {/* Download CV */}
@@ -91,17 +86,64 @@ const Intro = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 border shadow-md ${
-                  theme === "light"
-                    ? "border-gray-300 text-gray-900 hover:bg-gray-100 hover:shadow-lg"
-                    : "border-gray-600 text-white hover:bg-gray-800 hover:shadow-xl"
-                }`}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border-2
+                  font-medium transition-all duration-300 border shadow-md
+                  ${
+                    theme === "light"
+                      ? "border-gray-300 text-gray-900 hover:bg-gray-100 hover:shadow-lg border-gray-900"
+                      : "border-gray-600 text-white hover:bg-gray-800 hover:shadow-xl border-white"
+                  }`}
               >
                 <BsDownload size={20} />
                 {t.downloadCV}
               </motion.a>
             </div>
+
+            <div
+              className="flex flex-wrap justify-center gap-6 mt-6"
+            >
+              {/* Github Link */}
+             <motion.a
+                href="https://github.com/Tanas2k4"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className={`
+                  inline-flex items-center justify-center
+                  transition-all duration-300
+                  ${
+                    theme === "light"
+                      ? "text-gray-800 hover:text-black"
+                      : "text-gray-200 hover:text-white"
+                  }
+                `}
+              >
+                <BsGithub size={36} />
+              </motion.a>
+
+              {/* LinkedIn Profile */}
+              <motion.a
+                href="https://www.linkedin.com/in/t%E1%BA%A5n-tr%E1%BA%A7n-78b8b5379/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className={`
+                  inline-flex items-center justify-center
+                  transition-all duration-300
+                  ${
+                    theme === "light"
+                      ? "text-gray-800 hover:text-black"
+                      : "text-gray-200 hover:text-white"
+                  }
+                `}
+              >
+                <BsLinkedin size={36} />
+              </motion.a>
+            </div>
           </motion.div>
+          
 
           {/* Right Column - Image */}
           <motion.div
@@ -115,8 +157,8 @@ const Intro = () => {
               <div
                 className={`absolute inset-0 rounded-full blur-3xl opacity-20 ${
                   theme === "light"
-                    ? "bg-gradient-to-br from-blue-400 to-purple-400"
-                    : "bg-gradient-to-br from-blue-500 to-purple-500"
+                    ? "bg-gradient-to-br from-white to-gray-700"
+                    : "bg-gradient-to-br from-white to-gray-500"
                 }`}
                 style={{ transform: "scale(1.1)" }}
               />
@@ -127,7 +169,7 @@ const Intro = () => {
                   className={`relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-2xl overflow-hidden shadow-2xl ${
                     theme === "light"
                       ? "ring-4 ring-gray-200"
-                      : "ring-4 ring-gray-00"
+                      : "ring-4 ring-gray-700"
                   }`}
                 >
                   <img
@@ -158,6 +200,7 @@ const Intro = () => {
                   }`}
                 />
               </div>
+  
             </div>
           </motion.div>
         </div>
