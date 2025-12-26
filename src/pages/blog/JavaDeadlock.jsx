@@ -8,7 +8,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { TbLockCancel } from "react-icons/tb";
 
 const JavaDeadlock = () => {
-  const { theme, t } = useApp();
+  const { theme, t } = useApp("dark");
   const navigate = useApp().navigate;
   const [activeSection, setActiveSection] = useState("");
 
