@@ -9,7 +9,7 @@ const blogs = [
     title: "Why I choose .NET Core and Spring Boot for my future",
     tag: "Backend",
     date: "9.2024",
-    slug: "/blog/spring-boot",
+    slug: "/blog/WhyDotnetCoreSpringBoot",
     excerpt: "The framework that changed enterprise development"
   },
   {
@@ -17,7 +17,7 @@ const blogs = [
     title: "Spring Security Basics for Backend Devs",
     tag: "Java",
     date: "2024",
-    slug: "/blog/spring-security-basics",
+    slug: "/blog/SpringSecurityBasics",
     excerpt: "How Spring Security works and how to secure REST APIs"
   },
   {
@@ -25,7 +25,7 @@ const blogs = [
     title: "Building REST APIs with .NET",
     tag: ".NET",
     date: "2024",
-    slug: "/blog/dotnet-rest-api",
+    slug: "/blog/DotnetRestApi",
     excerpt: "Designing clean and maintainable RESTful APIs in ASP.NET"
   },
   {
@@ -33,7 +33,7 @@ const blogs = [
     title: "Runnable vs Thread in Java",
     tag: "Java",
     date: "2024",
-    slug: "/blog/runnable-vs-thread",
+    slug: "/blog/RunnableVsThread",
     excerpt: "Choosing the right way to create threads using Runnable and Thread"
   },
   {
@@ -41,7 +41,7 @@ const blogs = [
     title: "Understanding Deadlock in Java",
     tag: "Java",
     date: "2024",
-    slug: "/blog/java-deadlock",
+    slug: "/blog/JavaDeadlock",
     excerpt: "What deadlocks are, why they happen, and how to prevent them in Java applications"
   },
   {
@@ -49,7 +49,7 @@ const blogs = [
     title: "Async & Await Best Practices in JavaScript",
     tag: "JavaScript",
     date: "2024",
-    slug: "/blog/js-async-await",
+    slug: "/blog/JsAsyncAwait",
     excerpt: "Writing clean and predictable asynchronous JavaScript code"
   },
   {
@@ -57,7 +57,7 @@ const blogs = [
     title: "JavaScript Closures Demystified",
     tag: "JavaScript",
     date: "2024",
-    slug: "/blog/js-closures",
+    slug: "/blog/JsClosures",
     excerpt: "Understanding closures through simple and practical examples"
   },
   {
@@ -65,7 +65,7 @@ const blogs = [
     title: "DTO Mapping in Spring Boot",
     tag: "Java",
     date: "2024",
-    slug: "/blog/dto-mapping-spring",
+    slug: "/blog/DtoMappingSpring",
     excerpt: "Best practices for mapping Entity to DTO using MapStruct and ModelMapper"
   },
   {
@@ -73,7 +73,7 @@ const blogs = [
     title: "JWT Authentication in Spring Boot",
     tag: "Java",
     date: "2024",
-    slug: "/blog/jwt-spring-boot",
+    slug: "/blog/JwtSpringBoot",
     excerpt: "Implementing stateless authentication with JWT in Spring Boot"
   },
   {
@@ -81,7 +81,7 @@ const blogs = [
     title: "Ruby on Rails in 2025",
     tag: "Ruby",
     date: "2024",
-    slug: "/blog/ruby-rails",
+    slug: "/blog/RubyRails2025",
     excerpt: "Why Rails is still relevant in modern web dev"
   }
 ];
@@ -101,20 +101,59 @@ const Blog = () => {
       id="blog"
       className="min-h-screen w-full flex items-center justify-center py-20 md:py-32 overflow-hidden"
     >
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col items-center gap-16 md:gap-20">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col items-center gap-12 md:gap-0.5">
         {/* Header Section */}
-        <div className="flex flex-col items-center gap-4 text-center max-w-3xl">
+        <div className="flex flex-col items-center text-center max-w-3xl">
+          {/* Title */}
           <h1 className="text-center text-5xl md:text-7xl">
-          <span className={`font-light bg-clip-text text-transparent ${
-            theme === 'light'
-              ? 'bg-gradient-to-r from-gray-800 to-gray-600'
-              : 'bg-gradient-to-r from-white to-gray-400'
-          }`}>
-            {t.myBlog}
-          </span>
-        </h1>
-          
+            <span
+              className={`font-light bg-clip-text text-transparent ${
+                theme === "light"
+                  ? "bg-gradient-to-r from-gray-800 to-gray-600"
+                  : "bg-gradient-to-r from-white to-gray-400"
+              }`}
+            >
+              {t.myBlog}
+            </span>
+          </h1>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => handleNavigate("/blogs")}
+            className={`
+              group
+              mt-13
+              px-8 py-4
+              rounded-full
+              text-base font-semibold
+              transition-all duration-300
+              hover:scale-105
+              ${
+                theme === "light"
+                  ? "bg-gray-900 text-white hover:bg-gray-800 shadow-lg hover:shadow-xl"
+                  : "bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-2xl"
+              }
+            `}
+          >
+            <span className="flex items-center gap-2">
+              {t.viewAllPosts}
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
+
 
         {/* Marquee Section */}
         <div className="w-full">
@@ -277,39 +316,6 @@ const Blog = () => {
             </div>
           </div>
         </div>
-        {/* View All Button */}
-        <button
-          onClick={() => handleNavigate("/blog")}
-          className={`
-            group
-            px-8 py-4 rounded-full
-            text-base font-semibold
-            transition-all duration-300
-            hover:scale-105
-            ${
-              theme === "light"
-                ? "bg-gray-900 text-white hover:bg-gray-800 shadow-lg hover:shadow-xl"
-                : "bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-2xl"
-            }
-          `}
-        >
-          <span className="flex items-center gap-2">
-            {t.viewAllPosts}
-            <svg
-              className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </span>
-        </button>
       </div>
     </section>
   );

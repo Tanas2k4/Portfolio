@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AppProvider, useApp } from "./context/AppContext";
 import Tech from "./components/Tech";
 import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
@@ -9,8 +10,17 @@ import ZeinTeamPlanner from "./pages/projects/ZeinTeamPlanner";
 import ZeinIDE from "./pages/projects/ZeinIDE";
 import HutechIDE from "./pages/projects/HutechIDE";
 import Footer from "./components/Footer";
-import { AppProvider, useApp } from "./context/AppContext";
 import Blog from "./components/Blog";
+import SpringSecurityBasics from "./pages/blog/SpringSecurityBasics";
+import WhyDotnetCoreSpringBoot from "./pages/blog/WhyDotnetCoreSpringBoot";
+import DotnetRestApi from "./pages/blog/DotnetRestApi";
+import RunnableVsThread from "./pages/blog/RunnableVsThread";
+import JsAsyncAwait from "./pages/blog/JsAsyncAwait";
+import JsClosures from "./pages/blog/JsClosures";
+import DtoMappingSpring from "./pages/blog/DtoMappingSpring";
+import JwtSpringBoot from "./pages/blog/JwtSpringBoot";
+import RubyRails2025 from "./pages/blog/RubyRails2025";
+import JavaDeadlock from "./pages/blog/JavaDeadlock";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,7 +36,7 @@ function AppContent() {
   const { theme } = useApp();
 
   return (
-    <Router basename={import.meta.env.DEV ? "/" : "/Portfolio"}>
+    <>
       <ScrollToTop />
       <div className={`fixed -z-10 min-h-screen w-full ${
         theme === 'light' 
@@ -42,7 +52,6 @@ function AppContent() {
             <Projects />
             <Blog />
             <Contact />
-
           </main>
         } />
         <Route path="/home" element={
@@ -50,22 +59,36 @@ function AppContent() {
             <Intro />
             <Tech />
             <Projects />
+            <Blog />
             <Contact />           
           </main>
         } />
         <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
         <Route path="/home/zein-ide" element={<ZeinIDE />} />
         <Route path="/home/hutech-ide" element={<HutechIDE />} />
+        {/* blog pages */}
+        <Route path="/blog/WhyDotnetCoreSpringBoot" element={<WhyDotnetCoreSpringBoot />} />
+        <Route path="/blog/SpringSecurityBasics" element={<SpringSecurityBasics />} />
+        <Route path="/blog/DotnetRestApi" element={<DotnetRestApi />} />
+        <Route path="/blog/JavaDeadlock" element={<JavaDeadlock />} />
+        <Route path="/blog/RunnableVsThread" element={<RunnableVsThread />} />
+        <Route path="/blog/JsAsyncAwait" element={<JsAsyncAwait />} />
+        <Route path="/blog/JsClosures" element={<JsClosures />} />
+        <Route path="/blog/DtoMappingSpring" element={<DtoMappingSpring />} />
+        <Route path="/blog/JwtSpringBoot" element={<JwtSpringBoot />} />
+        <Route path="/blog/RubyRails2025" element={<RubyRails2025 />} />
       </Routes>
       <Footer /> 
-    </Router>
+    </>
   );
 }
 
 function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <Router basename={import.meta.env.DEV ? "/" : "/Portfolio"}>
+        <AppContent />
+      </Router>
     </AppProvider>
   );
 }

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { BsDownload, BsGithub, BsLinkedin } from "react-icons/bs";
-import { FiAward, FiTrendingUp } from "react-icons/fi";
+import cvFile from "../../public/cv/TranTrongTan-Backend-Intern-CV.pdf";
 import { useApp } from "../context/AppContext";
 import { HiChatBubbleLeftRight } from "react-icons/hi2";
 import avatarIntro from "../assets/avatar.JPEG";
@@ -39,7 +39,7 @@ const Intro = () => {
               </h1>
 
               <h2
-                className={`text-6xl sm:text-5xl lg:text-xl xl:text-7xl font-heading font-extrabold mt-1 leading-tight `}
+                className={`text-5xl sm:text-5xl lg:text-xl xl:text-7xl font-heading font-extrabold mt-1 leading-tight `}
               >
                 <span
                   className={`
@@ -81,7 +81,7 @@ const Intro = () => {
 
               {/* Download CV */}
               <motion.a
-                href="/cv/TranTrongTan-Backend-Intern CV.pdf"
+                href={cvFile}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
