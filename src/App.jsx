@@ -85,11 +85,11 @@ function AppContent() {
 
 function App() {
   return (
-    <AppProvider>
-      <Router basename={import.meta.env.DEV ? "/" : "/Portfolio"}>
+    <Router basename={import.meta.env.DEV ? "/" : "/Portfolio"}>
+      <AppProvider>
         <AppContent />
-      </Router>
-    </AppProvider>
+      </AppProvider>
+    </Router>
   );
 }
 
