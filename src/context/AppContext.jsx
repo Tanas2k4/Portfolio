@@ -1,15 +1,7 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate as useReactNavigate } from "react-router-dom";
 
 const AppContext = createContext();
-
-export const useApp = () => {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error("useApp must be used within AppProvider");
-  }
-  return context;
-};
 
 export const AppProvider = ({ children }) => {
   const navigate = useReactNavigate();
@@ -76,10 +68,15 @@ export const AppProvider = ({ children }) => {
       location:
         "2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)",
       introDescription:
-        "I’m a final-year Software Engineering student with experience in .NET (1+ years) and Spring Boot (6 months), gained through academic team projects and personal applications. I have developed strong backend knowledge and have basic understanding of ERP, CRM, and FinTech domains, and I am eager to further improve my skills and become more proficient in .NET and Spring Boot.",
+        "I’m a final-year SOFTWARE ENGINEERING student with experience in .NET (1+ years) and Spring Boot (6 months), gained through academic team projects and personal applications. I have developed strong backend knowledge and have basic understanding of ERP, CRM, and FinTech domains, and I am eager to further improve my skills and become more proficient in .NET and Spring Boot.",
       goToGithub: "Go to GitHub",
       downloadCV: "Download CV",
       connect: "Connect",
+      // About Me
+      aboutMe: "About Me",
+      abProjects: "Projects",
+      abAwards: "Awards",
+      abCertificates: "Certificates",
       // Tech
       technologies: "Technologies",
       // Projects
@@ -172,6 +169,11 @@ export const AppProvider = ({ children }) => {
       goToGithub: "Đến GitHub",
       downloadCV: "Tải CV",
       connect: "Kết nối",
+      // About Me
+      aboutMe: "Về tôi",
+      abProjects: "Dự án",
+      abAwards: "Giải thưởng",
+      abCertificates: "Chứng chỉ",
       // Tech
       technologies: "Công nghệ",
       // Projects
@@ -260,4 +262,12 @@ export const AppProvider = ({ children }) => {
       {children}
     </AppContext.Provider>
   );
+};
+
+export const useApp = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useApp must be used within an AppProvider");
+  }
+  return context;
 };

@@ -12,6 +12,7 @@ import rr4 from "../../assets/rr4.png";
 import rr5 from "../../assets/rr5.png";
 import rr6 from "../../assets/rr6.jpg";
 import rr7 from "../../assets/rr7.webp";
+import rr8 from "../../assets/rr8.webp";
 const RubyRails2025 = () => {
   const { theme, navigate } = useApp();
   const [activeSection, setActiveSection] = useState("");
@@ -218,7 +219,7 @@ const RubyRails2025 = () => {
 
             <div className="rounded-2xl overflow-hidden shadow-xl mb-8">
               <img
-                src="https://miro.medium.com/v2/resize:fit:1400/1*H26UheBrKhn98NRt3ehJow.png"
+                src={rr8}
                 alt="Ruby on Rails 8 modern features"
                 className="w-full h-auto object-cover"
               />

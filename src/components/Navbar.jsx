@@ -46,6 +46,15 @@ const Navbar = () => {
             {t.home}
           </li>
         </a>
+        <a href="#aboutme" className="nav-link">
+          <li
+            className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+              theme === "light" ? "text-gray-700" : "text-gray-300"
+            }`}
+          >
+            {t.aboutMe}
+          </li>
+        </a>
         <a href="#tech" className="nav-link">
           <li
             className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
@@ -73,7 +82,7 @@ const Navbar = () => {
             {t.blog}
           </li>
         </a>
-        <a href="#contact" className="nav-link">
+        {/* <a href="#contact" className="nav-link">
           <li
             className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
               theme === "light" ? "text-gray-700" : "text-gray-300"
@@ -81,7 +90,7 @@ const Navbar = () => {
           >
             {t.contact}
           </li>
-        </a>
+        </a> */}
       </ul>
 
       {/* Settings Icon - Desktop */}
@@ -236,6 +245,15 @@ const Navbar = () => {
                 {t.home}
               </li>
             </a>
+            <a href="#aboutme" className="mobile-nav-link" onClick={menuOpen}>
+              <li
+                className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
+                  theme === "light" ? "text-gray-700" : "text-gray-300"
+                }`}
+              >
+                {t.aboutMe}
+              </li>
+            </a>
             <a href="#tech" className="mobile-nav-link" onClick={menuOpen}>
               <li
                 className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
@@ -263,7 +281,7 @@ const Navbar = () => {
                 {t.blog}
               </li>
             </a>
-            <a href="#contact" className="mobile-nav-link" onClick={menuOpen}>
+            {/* <a href="#contact" className="mobile-nav-link" onClick={menuOpen}>
               <li
                 className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
                   theme === "light" ? "text-gray-700" : "text-gray-300"
@@ -271,7 +289,7 @@ const Navbar = () => {
               >
                 {t.contact}
               </li>
-            </a>
+            </a> */}
           </ul>
 
           {/* Mobile Settings */}

@@ -21,6 +21,7 @@ import DtoMappingSpring from "./pages/blog/DtoMappingSpring";
 import JwtSpringBoot from "./pages/blog/JwtSpringBoot";
 import RubyRails2025 from "./pages/blog/RubyRails2025";
 import JavaDeadlock from "./pages/blog/JavaDeadlock";
+import AboutMe from "./components/AboutMe";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,21 +49,24 @@ function AppContent() {
         <Route path="/" element={
           <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
             <Intro />
+            <AboutMe />
             <Tech />
             <Projects />
             <Blog />
-            <Contact />
+            {/* <Contact /> */}         
           </main>
         } />
         <Route path="/home" element={
           <main className="flex flex-col items-center px-4 md:px-8 lg:px-16">
             <Intro />
+            <AboutMe />
             <Tech />
             <Projects />
             <Blog />
-            <Contact />           
+            {/* <Contact />            */}
           </main>
         } />
+        {/* projects pages */}
         <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
         <Route path="/home/zein-ide" element={<ZeinIDE />} />
         <Route path="/home/hutech-ide" element={<HutechIDE />} />
