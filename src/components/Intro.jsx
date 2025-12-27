@@ -3,7 +3,9 @@ import { BsDownload, BsGithub, BsLinkedin } from "react-icons/bs";
 import cvFile from "../../public/cv/TranTrongTan-Backend-Intern-CV.pdf";
 import { useApp } from "../context/AppContext";
 import { HiChatBubbleLeftRight } from "react-icons/hi2";
+
 import avatarIntro from "../assets/avatar.JPEG";
+import { BiLogoGmail } from "react-icons/bi";
 const Intro = () => {
   const { theme, language, t } = useApp();
 
@@ -140,6 +142,27 @@ const Intro = () => {
                 `}
               >
                 <BsLinkedin size={36} />
+              </motion.a>
+
+              {/* Mailto */}
+              <motion.a
+                href="mailto:tt.tan25204@gmail.com"
+                alt="tt.tan25204@gmial.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className={`
+                  inline-flex items-center justify-center
+                  transition-all duration-300
+                  ${
+                    theme === "light"
+                      ? "text-gray-800 hover:text-black"
+                      : "text-gray-200 hover:text-white"
+                  }
+                `}
+              >
+                <BiLogoGmail  size={40} />
               </motion.a>
             </div>
           </motion.div>

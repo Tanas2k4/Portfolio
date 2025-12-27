@@ -116,7 +116,7 @@ const RunnableVsThread = () => {
                     : "bg-orange-400/30 text-orange-200"
                 }`}
               >
-                Java • Multithreading • 2024
+                Java • Multithreading • 2025
               </span>
             </div>
 

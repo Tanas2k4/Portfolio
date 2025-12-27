@@ -1,24 +1,23 @@
-import { useState } from 'react';
-import { useApp } from '../context/AppContext'; 
+import { useState } from "react";
+import { useApp } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
-
 
 const blogs = [
   {
     id: 1,
     title: "Why I choose .NET Core and Spring Boot for my future",
     tag: "Backend",
-    date: "9.2024",
+    date: "Comming soon",
     slug: "/blog/WhyDotnetCoreSpringBoot",
-    excerpt: "The framework that changed enterprise development"
+    excerpt: "The framework that changed enterprise development",
   },
   {
     id: 2,
     title: "Spring Security Basics for Backend Devs",
     tag: "Java",
-    date: "2024",
+    date: "2025",
     slug: "/blog/SpringSecurityBasics",
-    excerpt: "How Spring Security works and how to secure REST APIs"
+    excerpt: "How Spring Security works and how to secure REST APIs",
   },
   {
     id: 3,
@@ -26,15 +25,16 @@ const blogs = [
     tag: ".NET",
     date: "2024",
     slug: "/blog/DotnetRestApi",
-    excerpt: "Designing clean and maintainable RESTful APIs in ASP.NET"
+    excerpt: "Designing clean and maintainable RESTful APIs in ASP.NET",
   },
   {
     id: 4,
     title: "Runnable vs Thread in Java",
     tag: "Java",
-    date: "2024",
+    date: "2025",
     slug: "/blog/RunnableVsThread",
-    excerpt: "Choosing the right way to create threads using Runnable and Thread"
+    excerpt:
+      "Choosing the right way to create threads using Runnable and Thread",
   },
   {
     id: 5,
@@ -42,15 +42,16 @@ const blogs = [
     tag: "Java",
     date: "2024",
     slug: "/blog/JavaDeadlock",
-    excerpt: "What deadlocks are, why they happen, and how to prevent them in Java applications"
+    excerpt:
+      "What deadlocks are, why they happen, and how to prevent them in Java applications",
   },
   {
     id: 6,
     title: "Async & Await Best Practices in JavaScript",
     tag: "JavaScript",
-    date: "2024",
+    date: "2025",
     slug: "/blog/JsAsyncAwait",
-    excerpt: "Writing clean and predictable asynchronous JavaScript code"
+    excerpt: "Writing clean and predictable asynchronous JavaScript code",
   },
   {
     id: 7,
@@ -58,7 +59,7 @@ const blogs = [
     tag: "JavaScript",
     date: "2024",
     slug: "/blog/JsClosures",
-    excerpt: "Understanding closures through simple and practical examples"
+    excerpt: "Understanding closures through simple and practical examples",
   },
   {
     id: 8,
@@ -66,7 +67,8 @@ const blogs = [
     tag: "Java",
     date: "2024",
     slug: "/blog/DtoMappingSpring",
-    excerpt: "Best practices for mapping Entity to DTO using MapStruct and ModelMapper"
+    excerpt:
+      "Best practices for mapping Entity to DTO using MapStruct and ModelMapper",
   },
   {
     id: 9,
@@ -74,22 +76,22 @@ const blogs = [
     tag: "Java",
     date: "2024",
     slug: "/blog/JwtSpringBoot",
-    excerpt: "Implementing stateless authentication with JWT in Spring Boot"
+    excerpt: "Implementing stateless authentication with JWT in Spring Boot",
   },
   {
     id: 10,
     title: "Ruby on Rails in 2025",
     tag: "Ruby",
-    date: "2024",
+    date: "2025",
     slug: "/blog/RubyRails2025",
-    excerpt: "Why Rails is still relevant in modern web dev"
-  }
+    excerpt: "Why Rails is still relevant in modern web dev",
+  },
 ];
-
 
 const Blog = () => {
   const { theme, t } = useApp();
   const [isPaused, setIsPaused] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const handleNavigate = (slug) => {
     navigate(slug);
@@ -119,7 +121,7 @@ const Blog = () => {
 
           {/* CTA Button */}
           <button
-            onClick={() => handleNavigate("/blogs")}
+            onClick={() => setIsExpanded(!isExpanded)}
             className={`
               group
               mt-13
@@ -136,9 +138,11 @@ const Blog = () => {
             `}
           >
             <span className="flex items-center gap-2">
-              {t.viewAllPosts}
+              {isExpanded ? t.myBlog : t.viewAllPosts}
               <svg
-                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                className={`w-5 h-5 transition-transform duration-300 ${
+                  isExpanded ? "rotate-180" : "group-hover:translate-x-1"
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -154,67 +158,195 @@ const Blog = () => {
           </button>
         </div>
 
-
         {/* Marquee Section */}
         <div className="w-full">
-          {/* OUTER WRAPPER – tạo vùng an toàn */}
-          <div className="relative w-full py-20">
-            
-            {/* MASK LAYER */}
-            <div
-              className="pointer-events-none absolute inset-0 z-10"
-              style={{
-                maskImage:
-                  "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-              }}
-            />
+          {!isExpanded ? (
+            // MARQUEE VIEW
+            <>
+              {/* OUTER WRAPPER – tạo vùng an toàn */}
+              <div className="relative w-full py-20">
+                {/* MASK LAYER */}
+                <div
+                  className="pointer-events-none absolute inset-0 z-10"
+                  style={{
+                    maskImage:
+                      "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                    WebkitMaskImage:
+                      "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+                  }}
+                />
 
-            {/* CONTENT – cho phép hover bung */}
-            <div className="relative z-20 overflow-visible">
-              <style>{`
-                @keyframes marquee {
-                  0% { transform: translateX(0); }
-                  100% { transform: translateX(-50%); }
-                }
-                .animate-marquee {
-                  animation: marquee 60s linear infinite;
-                }
-                .animate-marquee.paused {
-                  animation-play-state: paused;
-                }
-              `}</style>
+                {/* CONTENT – cho phép hover bung */}
+                <div className="relative z-20 overflow-visible">
+                  <style>{`
+                    @keyframes marquee {
+                      0% { transform: translateX(0); }
+                      100% { transform: translateX(-50%); }
+                    }
+                    .animate-marquee {
+                      animation: marquee 60s linear infinite;
+                    }
+                    .animate-marquee.paused {
+                      animation-play-state: paused;
+                    }
+                  `}</style>
 
-              <div
-                className={`flex w-max gap-6 animate-marquee ${
-                  isPaused ? "paused" : ""
-                }`}
-              >
-                {[...blogs, ...blogs, ...blogs].map((blog, index) => (
+                  <div
+                    className={`flex w-max gap-6 animate-marquee ${
+                      isPaused ? "paused" : ""
+                    }`}
+                  >
+                    {[...blogs, ...blogs, ...blogs].map((blog, index) => (
+                      <div
+                        key={index}
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                        onClick={() => handleNavigate(blog.slug)}
+                        className={`
+                          group
+                          min-w-[280px] md:min-w-[320px]
+                          h-[240px]
+                          hover:h-auto
+                          cursor-pointer
+                          rounded-2xl
+                          p-5
+                          transition-all duration-500 ease-out
+                          hover:-translate-y-3
+                          hover:scale-[1.15]
+                          hover:border
+                          hover:z-30
+                          relative
+                          flex flex-col
+                          ${
+                            theme === "light"
+                              ? "bg-white/80 backdrop-blur-sm border-2 border-gray-300 hover:shadow-2xl hover:border-gray-400 hover:shadow-gray-300/60"
+                              : "bg-gray-900/60 backdrop-blur-sm border-2 border-gray-700 hover:shadow-2xl hover:border-gray-200 hover:shadow-black/40"
+                          }
+                        `}
+                      >
+                        {/* Tag + Date */}
+                        <div className="flex items-center gap-2 mb-4 shrink-0">
+                          <span
+                            className={`
+                              px-3 py-1 rounded-full text-xs font-semibold
+                              ${
+                                theme === "light"
+                                  ? "bg-gray-200 text-gray-700"
+                                  : "bg-gray-800 text-gray-300"
+                              }
+                            `}
+                          >
+                            {blog.tag}
+                          </span>
+                          <span
+                            className={`text-xs ${
+                              theme === "light"
+                                ? "text-gray-400"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            {blog.date}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <h3
+                          className={`
+                            text-xl md:text-2xl font-bold leading-snug mb-3
+                            transition-all duration-300
+                            line-clamp-2
+                            group-hover:line-clamp-none
+                            ${
+                              theme === "light"
+                                ? "text-gray-900 group-hover:text-gray-700"
+                                : "text-white group-hover:text-gray-200"
+                            }
+                          `}
+                        >
+                          {blog.title}
+                        </h3>
+
+                        {/* Excerpt */}
+                        <p
+                          className={`
+                            text-sm leading-relaxed mb-5
+                            transition-all duration-300
+                            line-clamp-3
+                            group-hover:line-clamp-none
+                            ${
+                              theme === "light"
+                                ? "text-gray-600"
+                                : "text-gray-400"
+                            }
+                          `}
+                        >
+                          {blog.excerpt}
+                        </p>
+
+                        {/* Spacer */}
+                        <div className="flex-1" />
+
+                        {/* Read More */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleNavigate(blog.slug);
+                          }}
+                          className={`
+                            flex items-center gap-2 text-sm font-medium
+                            transition-all duration-300
+                            group-hover:gap-3
+                            ${
+                              theme === "light"
+                                ? "text-gray-700 hover:text-gray-900"
+                                : "text-gray-300 hover:text-white"
+                            }
+                          `}
+                        >
+                          <span>{t.readMore}</span>
+                          <svg
+                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M17 8l4 4m0 0l-4 4m4-4H3"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            // GRID VIEW - All Blogs
+            <div className="w-full py-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {blogs.map((blog, index) => (
                   <div
                     key={index}
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
                     onClick={() => handleNavigate(blog.slug)}
                     className={`
                       group
-                      min-w-[280px] md:min-w-[320px]
-                      h-[240px]
-                      hover:h-auto
                       cursor-pointer
                       rounded-2xl
-                      p-5
-                      transition-all duration-500 ease-out
-                      hover:-translate-y-3
-                      hover:scale-[1.15]
-                      hover:z-30
-                      relative
+                      p-6
+                      transition-all duration-300
+                      hover:-translate-y-2
+                      hover:shadow-xl
+                      hover:border
                       flex flex-col
+                      h-full
                       ${
                         theme === "light"
-                          ? "bg-white/80 backdrop-blur-sm border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-300/60"
-                          : "bg-gray-900/60 backdrop-blur-sm border-2 border-gray-700 hover:shadow-2xl hover:shadow-black/40"
+                          ? "bg-white border border-gray-200 hover:border-gray-400 hover:shadow-gray-300/50"
+                          : "bg-gray-900/50 border border-gray-800 hover:border-gray-200 hover:shadow-black/40"
                       }
                     `}
                   >
@@ -244,10 +376,8 @@ const Blog = () => {
                     {/* Title */}
                     <h3
                       className={`
-                        text-xl md:text-2xl font-bold leading-snug mb-3
+                        text-xl font-bold leading-snug mb-3
                         transition-all duration-300
-                        line-clamp-2
-                        group-hover:line-clamp-none
                         ${
                           theme === "light"
                             ? "text-gray-900 group-hover:text-gray-700"
@@ -261,22 +391,12 @@ const Blog = () => {
                     {/* Excerpt */}
                     <p
                       className={`
-                        text-sm leading-relaxed mb-5
-                        transition-all duration-300
-                        line-clamp-3
-                        group-hover:line-clamp-none
-                        ${
-                          theme === "light"
-                            ? "text-gray-600"
-                            : "text-gray-400"
-                        }
+                        text-sm leading-relaxed mb-5 flex-1
+                        ${theme === "light" ? "text-gray-600" : "text-gray-400"}
                       `}
                     >
                       {blog.excerpt}
                     </p>
-
-                    {/* Spacer */}
-                    <div className="flex-1" />
 
                     {/* Read More */}
                     <button
@@ -314,7 +434,7 @@ const Blog = () => {
                 ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

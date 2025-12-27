@@ -129,7 +129,7 @@ const SpringSecurityBasics = () => {
                     : "bg-green-400/30 text-green-200"
                 }`}
               >
-                Java • Backend • 2024
+                Java • Backend • 2025
               </span>
             </div>
 

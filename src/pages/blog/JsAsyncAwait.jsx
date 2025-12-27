@@ -119,7 +119,7 @@ const JsAsyncAwait = () => {
                     : "bg-yellow-400/30 text-yellow-200"
                 }`}
               >
-                JavaScript • Async • 2024
+                JavaScript • Async • 2025
               </span>
             </div>
 

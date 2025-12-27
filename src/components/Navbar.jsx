@@ -81,16 +81,7 @@ const Navbar = () => {
           >
             {t.blog}
           </li>
-        </a>
-        {/* <a href="#contact" className="nav-link">
-          <li
-            className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
-              theme === "light" ? "text-gray-700" : "text-gray-300"
-            }`}
-          >
-            {t.contact}
-          </li>
-        </a> */}
+        </a>       
       </ul>
 
       {/* Settings Icon - Desktop */}
@@ -281,15 +272,6 @@ const Navbar = () => {
                 {t.blog}
               </li>
             </a>
-            {/* <a href="#contact" className="mobile-nav-link" onClick={menuOpen}>
-              <li
-                className={`opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer ${
-                  theme === "light" ? "text-gray-700" : "text-gray-300"
-                }`}
-              >
-                {t.contact}
-              </li>
-            </a> */}
           </ul>
 
           {/* Mobile Settings */}

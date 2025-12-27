@@ -73,7 +73,7 @@ export const AppProvider = ({ children }) => {
       downloadCV: "Download CV",
       connect: "Connect",
       // About Me
-      aboutMe: "About Me",
+      aboutMe: "About me",
       abProjects: "Projects",
       abAwards: "Awards",
       abCertificates: "Certificates",

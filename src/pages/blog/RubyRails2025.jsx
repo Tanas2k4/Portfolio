@@ -482,8 +482,8 @@ const RubyRails2025 = () => {
                   onClick={() => handleNavigate("SpringSecurityBasics")}
                   className={`text-left p-6 rounded-xl transition border ${
                     theme === "light"
-                      ? "bg-white border-gray-300 hover:border-green-500 hover:shadow-lg"
-                      : "bg-gray-800 border-gray-700 hover:border-green-500 hover:shadow-lg"
+                      ? "bg-white border-gray-300 hover:border-sky-600 hover:shadow-lg"
+                      : "bg-gray-800 border-gray-700 hover:border-sky-500 hover:shadow-lg"
                   }`}
                 >
                   <div className="flex items-start gap-3">
