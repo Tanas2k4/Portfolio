@@ -6,6 +6,9 @@ import { useApp } from "../context/AppContext";
 import zeinTeamPlannerImg from "../assets/zein-teamplanner.png";
 import zeinIdeImg from "../assets/zein-ide.png";
 import hutechIdeImg from "../assets/hutech-ide.png";
+import picsocailApi from "../assets/picSocialApi.png"
+import { title } from "framer-motion/client";
+import { AiFillPicture } from "react-icons/ai";
 
 const ScrollReveal = ({ children }) => {
   return (
@@ -64,9 +67,8 @@ const ProjectCard = ({ project, index }) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
-            <div className={`text-xl font-semibold ${
-              theme === 'light' ? 'text-gray-800' : 'text-white'
-            }`}>
+            <div className={`text-xl font-semibold ${theme === 'light' ? 'text-gray-800' : 'text-white'
+              }`}>
               {project.title}
             </div>
             <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>
@@ -83,11 +85,10 @@ const ProjectCard = ({ project, index }) => {
             {project.technologies.map((tech, techIndex) => (
               <motion.span
                 key={techIndex}
-                className={`rounded-lg px-3 py-1 text-sm ${
-                  theme === 'light'
+                className={`rounded-lg px-3 py-1 text-sm ${theme === 'light'
                     ? 'bg-white text-gray-800'
                     : 'bg-gray-800 text-white'
-                }`}
+                  }`}
                 variants={techItemVariants}
               >
                 {tech}
@@ -97,11 +98,10 @@ const ProjectCard = ({ project, index }) => {
 
           <Link to={project.link}>
             <motion.button
-              className={`flex items-center justify-center w-[180px] text-sm px-4 py-2 rounded-lg transition-all md:w-[200px] md:text-base ${
-                theme === 'light'
+              className={`flex items-center justify-center w-[180px] text-sm px-4 py-2 rounded-lg transition-all md:w-[200px] md:text-base ${theme === 'light'
                   ? 'text-white bg-gray-800 hover:bg-gray-700'
                   : 'text-black bg-white hover:bg-gray-200'
-              }`}
+                }`}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
@@ -121,6 +121,13 @@ const Projects = () => {
   const { theme, language, t } = useApp();
 
   const projectsData = [
+    {
+      image: picsocailApi,
+      title: "PicSocial API",
+      descriptionKey: "apiforPicSocialWebApp",
+      technologies: ["ASP.Net Core", "SQL Server", "EF Core", "JWT"],
+      link: "https://tanas2k4.github.io/picsocial-api-docs/"
+    },
     {
       image: zeinTeamPlannerImg,
       title: "Zein Team Planner",
@@ -146,9 +153,9 @@ const Projects = () => {
       image: hutechIdeImg,
       title: "HUTECH IDE",
       descriptionKey: "forStudentLearnCode",
-      technologies: ["Typescript", "TailwindCSS", "JavaScript","NodeJs", "Theia Extension", "Electron"],
+      technologies: ["Typescript", "TailwindCSS", "JavaScript", "NodeJs", "Theia Extension", "Electron"],
       link: "/home/hutech-ide",
-    },
+    }
   ];
 
   return (
@@ -158,9 +165,8 @@ const Projects = () => {
       style={{ fontFamily: language === 'vi' ? 'Inter, sans-serif' : 'inherit' }}
     >
       <motion.h1
-        className={`text-4xl font-light md:text-6xl ${
-          theme === 'light' ? 'text-gray-800' : 'text-white'
-        }`}
+        className={`text-4xl font-light md:text-6xl ${theme === 'light' ? 'text-gray-800' : 'text-white'
+          }`}
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
