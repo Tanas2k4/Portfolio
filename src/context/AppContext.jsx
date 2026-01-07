@@ -131,7 +131,10 @@ export const AppProvider = ({ children }) => {
         "Displays error messages and basic debugging tools for troubleshooting",
       zeinIDEFeature4:
         "Runs seamlessly on both browser and desktop application versions",
-      zeinIDEFeature5: "Multiple theme options including dark and light modes",
+      zeinIDEFeature5: 
+        "Multiple theme options including dark and light modes",
+      zeinIDEFeature6:
+        "Integrated an AI assistant to support developers with coding guidance and problem-solving suggestions without directly generating code.",
       zeinIDESummary:
         "HUTECH IDE is a customized fork of Zein IDE, built on Eclipse Theia. It runs on both browser and desktop, supports C/C++, Java, and Python, and includes syntax highlighting, error display, debugging, and theme options. The platform is tailored for HUTECH University students to make coding and learning more convenient.",
       // HUTECH IDE
@@ -178,6 +181,7 @@ export const AppProvider = ({ children }) => {
       technologies: "Công nghệ",
       // Projects
       myProjects: "Dự án của tôi",
+      apiForPicSocialWebApp: "API cho ứng dụng web PicSocial",
       forStudentTeamWork: "dành cho làm việc nhóm sinh viên",
       forStudentLearnCode: "Dành cho sinh viên học lập trình",
       viewDetails: "Xem chi tiết",

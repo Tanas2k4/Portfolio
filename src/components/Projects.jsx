@@ -124,7 +124,7 @@ const Projects = () => {
     {
       image: picsocailApi,
       title: "PicSocial API",
-      descriptionKey: "apiforPicSocialWebApp",
+      descriptionKey: "apiForPicSocialWebApp",
       technologies: ["ASP.Net Core", "SQL Server", "EF Core", "JWT"],
       link: "https://tanas2k4.github.io/picsocial-api-docs/"
     },

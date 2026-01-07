@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { BiArrowBack, BiChevronRight, BiChevronLeft } from "react-icons/bi";
 import { useApp } from "../../context/AppContext";
 import zeinIdeImg from "../../assets/zein-ide.png";
-
+import zeidideai from "../../assets/zeinideai.jpg"
 const ZeinIDE = () => {
   const [activeSection, setActiveSection] = useState("overview");
   const { theme, t } = useApp();
@@ -203,6 +203,16 @@ const ZeinIDE = () => {
               className="w-full h-auto"
             />
           </div>
+          <br />
+          <div className={`relative rounded-2xl overflow-hidden ring-1 ${
+            isDark ? 'ring-gray-800' : 'ring-gray-200'
+          }`}>
+            <img
+              src={zeidideai}
+              alt="Zein IDE AI"
+              className="w-full h-auto"
+            />
+          </div>
         </motion.div>
 
         {/* Key Features */}
@@ -226,7 +236,8 @@ const ZeinIDE = () => {
               t.zeinIDEFeature2,
               t.zeinIDEFeature3,
               t.zeinIDEFeature4,
-              t.zeinIDEFeature5
+              t.zeinIDEFeature5,
+              t.zeinIDEFeature6
             ].map((feature, index) => (
               <li
                 key={index}
@@ -280,7 +291,7 @@ const ZeinIDE = () => {
           className="flex flex-wrap gap-4 mb-12"
         >
           <a
-            href="https://zeinide.qzz.io/"
+            href="https://www.youtube.com/watch?v=SQ1TVDpBqGw&t=5s"
             target="_blank"
             rel="noopener noreferrer"
             className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
@@ -289,19 +300,7 @@ const ZeinIDE = () => {
                 : 'bg-gray-900 text-white hover:bg-gray-800'
             }`}
           >
-            Landing Page
-          </a>
-          <a
-            href="https://gitlab.com/khar34/zein-ide"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ring-1 ${
-              isDark
-                ? 'ring-gray-700 text-gray-300 hover:bg-gray-800'
-                : 'ring-gray-400 text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            {t.viewSourceCode}
+            Demo
           </a>
         </motion.div>
 

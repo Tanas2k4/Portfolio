@@ -81,7 +81,7 @@ const Intro = () => {
                 {t.connect}                
               </motion.a>
 
-              {/* Download CV */}
+              {/* Download CV
               <motion.a
                 href={cvFile}
                 target="_blank"
@@ -98,7 +98,7 @@ const Intro = () => {
               >
                 <BsDownload size={20} />
                 {t.downloadCV}
-              </motion.a>
+              </motion.a> */}
             </div>
 
             <div
