@@ -1,441 +1,281 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { BiRightArrowAlt, BiLinkExternal, BiArrowBack } from "react-icons/bi";
+import Button from "./ui/Button";
+import { marked } from "marked";
 
-const blogs = [
-  {
-    id: 1,
-    title: "Why I choose .NET Core and Spring Boot for my future",
-    tag: "Backend",
-    date: "Comming soon",
-    slug: "/blog/WhyDotnetCoreSpringBoot",
-    excerpt: "The framework that changed enterprise development",
-  },
-  {
-    id: 2,
-    title: "Spring Security Basics for Backend Devs",
-    tag: "Java",
-    date: "2025",
-    slug: "/blog/SpringSecurityBasics",
-    excerpt: "How Spring Security works and how to secure REST APIs",
-  },
-  {
-    id: 3,
-    title: "Building REST APIs with .NET",
-    tag: ".NET",
-    date: "2024",
-    slug: "/blog/DotnetRestApi",
-    excerpt: "Designing clean and maintainable RESTful APIs in ASP.NET",
-  },
-  {
-    id: 4,
-    title: "Runnable vs Thread in Java",
-    tag: "Java",
-    date: "2025",
-    slug: "/blog/RunnableVsThread",
-    excerpt:
-      "Choosing the right way to create threads using Runnable and Thread",
-  },
-  {
-    id: 5,
-    title: "Understanding Deadlock in Java",
-    tag: "Java",
-    date: "2024",
-    slug: "/blog/JavaDeadlock",
-    excerpt:
-      "What deadlocks are, why they happen, and how to prevent them in Java applications",
-  },
-  {
-    id: 6,
-    title: "Async & Await Best Practices in JavaScript",
-    tag: "JavaScript",
-    date: "2025",
-    slug: "/blog/JsAsyncAwait",
-    excerpt: "Writing clean and predictable asynchronous JavaScript code",
-  },
-  {
-    id: 7,
-    title: "JavaScript Closures Demystified",
-    tag: "JavaScript",
-    date: "2024",
-    slug: "/blog/JsClosures",
-    excerpt: "Understanding closures through simple and practical examples",
-  },
-  {
-    id: 8,
-    title: "DTO Mapping in Spring Boot",
-    tag: "Java",
-    date: "2024",
-    slug: "/blog/DtoMappingSpring",
-    excerpt:
-      "Best practices for mapping Entity to DTO using MapStruct and ModelMapper",
-  },
-  {
-    id: 9,
-    title: "JWT Authentication in Spring Boot",
-    tag: "Java",
-    date: "2024",
-    slug: "/blog/JwtSpringBoot",
-    excerpt: "Implementing stateless authentication with JWT in Spring Boot",
-  },
-  {
-    id: 10,
-    title: "Ruby on Rails in 2025",
-    tag: "Ruby",
-    date: "2025",
-    slug: "/blog/RubyRails2025",
-    excerpt: "Why Rails is still relevant in modern web dev",
-  },
-];
+const DEVTO_USERNAME = "tanas2k4";
+
+// Dùng proxy khi local (tránh CORS), dùng trực tiếp khi production
+const DEVTO_BASE =
+  import.meta.env.DEV ? "/devto-api" : "https://dev.to/api";
+
+const mockBlogs = [];
 
 const Blog = () => {
-  const { theme, t } = useApp();
-  const [isPaused, setIsPaused] = useState(false);
+  const { language, t } = useApp();
+  const [blogsList, setBlogsList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
-  const navigate = useNavigate();
-  const handleNavigate = (slug) => {
-    navigate(slug);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
+  // Detail view states
+  const [activePostId, setActivePostId] = useState(null);
+  const [activePost, setActivePost] = useState(null);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+
+  // Fetch list of blogs
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${DEVTO_BASE}/articles?username=${DEVTO_USERNAME}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            const formatted = data.map((post) => ({
+              id: post.id,
+              title: post.title,
+              tag: post.tag_list && post.tag_list[0] ? post.tag_list[0].toUpperCase() : "BLOG",
+              tags: post.tag_list || [],
+              date: new Date(post.published_at).getFullYear().toString(),
+              link: post.url,
+              excerpt: post.description,
+            }));
+            setBlogsList(formatted);
+          } else {
+            setBlogsList(mockBlogs);
+          }
+        } else {
+          setBlogsList(mockBlogs);
+        }
+      } catch {
+        setBlogsList(mockBlogs);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // Fetch single blog detail
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!activePostId) {
+      setActivePost(null);
+      return;
+    }
+
+    const fetchDetail = async () => {
+      setLoadingDetail(true);
+      try {
+        const res = await fetch(`${DEVTO_BASE}/articles/${activePostId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setActivePost(data);
+        }
+      } catch (err) {
+        console.error("Error fetching article details:", err);
+      } finally {
+        setLoadingDetail(false);
+      }
+    };
+
+    fetchDetail();
+  }, [activePostId]);
+
+  // Lọc bài viết dựa theo tag và ngôn ngữ chọn
+  const filteredBlogs = blogsList.filter((blog) => {
+    const hasViTag = blog.tags?.some(t => t.toLowerCase() === "vi" || t.toLowerCase() === "vietnamese");
+    if (language === "vi") {
+      return hasViTag;
+    } else {
+      return !hasViTag;
+    }
+  });
+
+  // Nếu đang ở tiếng Việt nhưng chưa có bài viết tiếng Việt nào, hiển thị danh sách bài viết tiếng Anh để tránh trống trang
+  const finalBlogsList = (language === "vi" && filteredBlogs.length === 0)
+    ? blogsList.filter(blog => !blog.tags?.some(t => t.toLowerCase() === "vi" || t.toLowerCase() === "vietnamese"))
+    : filteredBlogs;
+
+  const displayedBlogs = isExpanded ? finalBlogsList : finalBlogsList.slice(0, 3);
+
+  // Render Detailed Blog View
+  if (activePostId) {
+    return (
+      <section
+        id="blog-detail"
+        className="w-full py-4 bg-white"
+        style={{
+          fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
+        }}
+      >
+        <div className="w-full  mx-auto">
+          {/* Breadcrumb Navigation */}
+          <div className="mb-4">
+            <button
+              onClick={() => setActivePostId(null)}
+              className="text-2xl text-neutral-900 tracking-wide leading-none hover:opacity-75 transition-opacity cursor-pointer bg-transparent border-none p-0 flex items-center gap-2"
+            >
+              <span>{language === "en" ? "My Blogs" : "Blog của tôi"}</span>
+              <span className="text-neutral-300 font-light font-sans">/</span>
+            </button>
+          </div>
+
+          {loadingDetail || !activePost ? (
+            <div className="py-20 text-center font-mono text-xs text-neutral-500">
+              {language === "en" ? "Loading article content..." : "Đang tải nội dung bài viết..."}
+            </div>
+          ) : (
+            <article className="animate-fade-in">
+              {/* Cover image if available */}
+              {activePost.cover_image && (
+                <div className="w-full aspect-[21/9] overflow-hidden border border-neutral-200 mb-8 bg-neutral-50">
+                  <img
+                    src={activePost.cover_image}
+                    alt={activePost.title}
+                    className="w-full h-full object-cover select-none"
+                  />
+                </div>
+              )}
+
+              {/* Title & Metadata */}
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900 mb-4 leading-tight">
+                {activePost.title}
+              </h1>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400 mb-8 pb-4 border-b border-neutral-100">
+                <span>
+                  {new Date(activePost.published_at).toLocaleDateString(
+                    language === "en" ? "en-US" : "vi-VN",
+                    { year: "numeric", month: "long", day: "numeric" }
+                  )}
+                </span>
+                <span>•</span>
+                <span className="text-emerald-600 font-semibold uppercase">
+                  {Array.isArray(activePost.tags)
+                    ? activePost.tags.join(", ")
+                    : typeof activePost.tag_list === "string"
+                      ? activePost.tag_list
+                      : ""}
+                </span>
+              </div>
+
+              {/* Main HTML Body rendered from Markdown */}
+              <div
+                className="blog-content"
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(activePost.body_markdown || "", { breaks: true, gfm: true }),
+                }}
+              />
+
+              {/* Footer dev.to attribution */}
+              <div className="mt-16 pt-6 border-t border-dashed border-neutral-200 text-center">
+                <a
+                  href={activePost.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-500 hover:text-black transition-colors"
+                >
+                  <span>{language === "en" ? "View original on Dev.to" : "Xem bài viết gốc trên Dev.to"}</span>
+                  <BiLinkExternal />
+                </a>
+              </div>
+            </article>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  // Render Blogs List View
   return (
     <section
       id="blog"
-      className="min-h-screen w-full flex items-center justify-center py-20 md:py-32 overflow-hidden"
+      className="w-full py-4 bg-white"
+      style={{
+        fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
+      }}
     >
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col items-center gap-12 md:gap-0.5">
-        {/* Header Section */}
-        <div className="flex flex-col items-center text-center max-w-3xl">
-          {/* Title */}
-          <h1 className="text-center text-5xl md:text-7xl">
-            <span
-              className={`font-light bg-clip-text text-transparent ${
-                theme === "light"
-                  ? "bg-gradient-to-r from-gray-800 to-gray-600"
-                  : "bg-gradient-to-r from-white to-gray-400"
-              }`}
-            >
+      <div className="w-full">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+          <div>
+            <h1 className="text-2xl text-neutral-900 tracking-wide leading-none">
               {t.myBlog}
-            </span>
-          </h1>
+            </h1>
+          </div>
 
-          {/* CTA Button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className={`
-              group
-              mt-13
-              px-8 py-4
-              rounded-full
-              text-base font-semibold
-              transition-all duration-300
-              hover:scale-105
-              ${
-                theme === "light"
-                  ? "bg-gray-900 text-white hover:bg-gray-800 shadow-lg hover:shadow-xl"
-                  : "bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-2xl"
-              }
-            `}
-          >
-            <span className="flex items-center gap-2">
-              {isExpanded ? t.myBlog : t.viewAllPosts}
-              <svg
-                className={`w-5 h-5 transition-transform duration-300 ${
-                  isExpanded ? "rotate-180" : "group-hover:translate-x-1"
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-
-        {/* Marquee Section */}
-        <div className="w-full">
-          {!isExpanded ? (
-            // MARQUEE VIEW
-            <>
-              {/* OUTER WRAPPER – tạo vùng an toàn */}
-              <div className="relative w-full py-20">
-                {/* MASK LAYER */}
-                <div
-                  className="pointer-events-none absolute inset-0 z-10"
-                  style={{
-                    maskImage:
-                      "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-                    WebkitMaskImage:
-                      "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-                  }}
-                />
-
-                {/* CONTENT – cho phép hover bung */}
-                <div className="relative z-20 overflow-visible">
-                  <style>{`
-                    @keyframes marquee {
-                      0% { transform: translateX(0); }
-                      100% { transform: translateX(-50%); }
-                    }
-                    .animate-marquee {
-                      animation: marquee 60s linear infinite;
-                    }
-                    .animate-marquee.paused {
-                      animation-play-state: paused;
-                    }
-                  `}</style>
-
-                  <div
-                    className={`flex w-max gap-6 animate-marquee ${
-                      isPaused ? "paused" : ""
-                    }`}
-                  >
-                    {[...blogs, ...blogs, ...blogs].map((blog, index) => (
-                      <div
-                        key={index}
-                        onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
-                        onClick={() => handleNavigate(blog.slug)}
-                        className={`
-                          group
-                          min-w-[280px] md:min-w-[320px]
-                          h-[240px]
-                          hover:h-auto
-                          cursor-pointer
-                          rounded-2xl
-                          p-5
-                          transition-all duration-500 ease-out
-                          hover:-translate-y-3
-                          hover:scale-[1.15]
-                          hover:border
-                          hover:z-30
-                          relative
-                          flex flex-col
-                          ${
-                            theme === "light"
-                              ? "bg-white/80 backdrop-blur-sm border-2 border-gray-300 hover:shadow-2xl hover:border-gray-400 hover:shadow-gray-300/60"
-                              : "bg-gray-900/60 backdrop-blur-sm border-2 border-gray-700 hover:shadow-2xl hover:border-gray-200 hover:shadow-black/40"
-                          }
-                        `}
-                      >
-                        {/* Tag + Date */}
-                        <div className="flex items-center gap-2 mb-4 shrink-0">
-                          <span
-                            className={`
-                              px-3 py-1 rounded-full text-xs font-semibold
-                              ${
-                                theme === "light"
-                                  ? "bg-gray-200 text-gray-700"
-                                  : "bg-gray-800 text-gray-300"
-                              }
-                            `}
-                          >
-                            {blog.tag}
-                          </span>
-                          <span
-                            className={`text-xs ${
-                              theme === "light"
-                                ? "text-gray-400"
-                                : "text-gray-500"
-                            }`}
-                          >
-                            {blog.date}
-                          </span>
-                        </div>
-
-                        {/* Title */}
-                        <h3
-                          className={`
-                            text-xl md:text-2xl font-bold leading-snug mb-3
-                            transition-all duration-300
-                            line-clamp-2
-                            group-hover:line-clamp-none
-                            ${
-                              theme === "light"
-                                ? "text-gray-900 group-hover:text-gray-700"
-                                : "text-white group-hover:text-gray-200"
-                            }
-                          `}
-                        >
-                          {blog.title}
-                        </h3>
-
-                        {/* Excerpt */}
-                        <p
-                          className={`
-                            text-sm leading-relaxed mb-5
-                            transition-all duration-300
-                            line-clamp-3
-                            group-hover:line-clamp-none
-                            ${
-                              theme === "light"
-                                ? "text-gray-600"
-                                : "text-gray-400"
-                            }
-                          `}
-                        >
-                          {blog.excerpt}
-                        </p>
-
-                        {/* Spacer */}
-                        <div className="flex-1" />
-
-                        {/* Read More */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleNavigate(blog.slug);
-                          }}
-                          className={`
-                            flex items-center gap-2 text-sm font-medium
-                            transition-all duration-300
-                            group-hover:gap-3
-                            ${
-                              theme === "light"
-                                ? "text-gray-700 hover:text-gray-900"
-                                : "text-gray-300 hover:text-white"
-                            }
-                          `}
-                        >
-                          <span>{t.readMore}</span>
-                          <svg
-                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M17 8l4 4m0 0l-4 4m4-4H3"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            // GRID VIEW - All Blogs
-            <div className="w-full py-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {blogs.map((blog, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleNavigate(blog.slug)}
-                    className={`
-                      group
-                      cursor-pointer
-                      rounded-2xl
-                      p-6
-                      transition-all duration-300
-                      hover:-translate-y-2
-                      hover:shadow-xl
-                      hover:border
-                      flex flex-col
-                      h-full
-                      ${
-                        theme === "light"
-                          ? "bg-white border border-gray-200 hover:border-gray-400 hover:shadow-gray-300/50"
-                          : "bg-gray-900/50 border border-gray-800 hover:border-gray-200 hover:shadow-black/40"
-                      }
-                    `}
-                  >
-                    {/* Tag + Date */}
-                    <div className="flex items-center gap-2 mb-4 shrink-0">
-                      <span
-                        className={`
-                          px-3 py-1 rounded-full text-xs font-semibold
-                          ${
-                            theme === "light"
-                              ? "bg-gray-200 text-gray-700"
-                              : "bg-gray-800 text-gray-300"
-                          }
-                        `}
-                      >
-                        {blog.tag}
-                      </span>
-                      <span
-                        className={`text-xs ${
-                          theme === "light" ? "text-gray-400" : "text-gray-500"
-                        }`}
-                      >
-                        {blog.date}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3
-                      className={`
-                        text-xl font-bold leading-snug mb-3
-                        transition-all duration-300
-                        ${
-                          theme === "light"
-                            ? "text-gray-900 group-hover:text-gray-700"
-                            : "text-white group-hover:text-gray-200"
-                        }
-                      `}
-                    >
-                      {blog.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p
-                      className={`
-                        text-sm leading-relaxed mb-5 flex-1
-                        ${theme === "light" ? "text-gray-600" : "text-gray-400"}
-                      `}
-                    >
-                      {blog.excerpt}
-                    </p>
-
-                    {/* Read More */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleNavigate(blog.slug);
-                      }}
-                      className={`
-                        flex items-center gap-2 text-sm font-medium
-                        transition-all duration-300
-                        group-hover:gap-3
-                        ${
-                          theme === "light"
-                            ? "text-gray-700 hover:text-gray-900"
-                            : "text-gray-300 hover:text-white"
-                        }
-                      `}
-                    >
-                      <span>{t.readMore}</span>
-                      <svg
-                        className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Toggle View button */}
+          {finalBlogsList.length > 3 && (
+            <Button
+              onClick={() => setIsExpanded(!isExpanded)}
+              variant="secondary"
+              className="mt-6 md:mt-0"
+            >
+              <span>
+                {isExpanded
+                  ? language === "en"
+                    ? "Show Less"
+                    : "Thu gọn"
+                  : t.viewAllPosts}
+              </span>
+              <BiRightArrowAlt
+                className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
+              />
+            </Button>
           )}
         </div>
+
+        {loading ? (
+          <div className="py-20 text-center font-mono text-xs text-neutral-500">
+            {language === "en" ? "Loading posts..." : "Đang tải bài viết..."}
+          </div>
+        ) : finalBlogsList.length === 0 ? (
+          <div className="py-20 text-center font-mono text-xs text-neutral-400">
+            {language === "en" ? "No posts published yet." : "Chưa có bài viết nào được xuất bản."}
+          </div>
+        ) : (
+          /* Grid Display */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {displayedBlogs.map((blog) => (
+              <div
+                key={blog.id}
+                onClick={() => setActivePostId(blog.id)}
+                className="p-6 rounded-none border border-neutral-150 transition-all duration-300 flex flex-col justify-between bg-white hover:border-black group cursor-pointer"
+              >
+                <div>
+                  {/* Meta listing */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="px-2 py-0.5 border border-neutral-200 rounded-none text-[10px] font-mono tracking-tighter uppercase text-neutral-500">
+                      {blog.tag}
+                    </span>
+                    <span className="text-[11px] text-neutral-400 font-mono">
+                      {blog.date}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-base font-bold mb-3 tracking-tight leading-snug line-clamp-2 text-neutral-800 group-hover:text-black">
+                    {blog.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="text-xs leading-relaxed line-clamp-4 text-neutral-500">
+                    {blog.excerpt}
+                  </p>
+                </div>
+
+                {/* Read Article Action */}
+                <div className="pt-4 mt-6 border-t border-dashed border-neutral-200 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black group-hover:underline">
+                  <span>{language === "en" ? "Read Article" : "Đọc bài viết"}</span>
+                  <BiRightArrowAlt size={16} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

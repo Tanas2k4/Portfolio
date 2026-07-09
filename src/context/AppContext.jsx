@@ -1,4 +1,5 @@
-import { useState, useEffect, createContext, useContext } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { useState, createContext, useContext } from "react";
 import { useNavigate as useReactNavigate } from "react-router-dom";
 
 const AppContext = createContext();
@@ -12,13 +13,6 @@ export const AppProvider = ({ children }) => {
     return "en";
   });
 
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "dark";
-    }
-    return "dark";
-  });
-
   const toggleLanguage = () => {
     setLanguage((prev) => {
       const newLang = prev === "en" ? "vi" : "en";
@@ -27,53 +21,47 @@ export const AppProvider = ({ children }) => {
     });
   };
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", newTheme);
-      return newTheme;
-    });
-  };
-
-  // Apply theme to document
-  useEffect(() => {
-    if (theme === "light") {
-      document.documentElement.classList.add("light-mode");
-    } else {
-      document.documentElement.classList.remove("light-mode");
-    }
-  }, [theme]);
-
   const translations = {
     en: {
       //Navbar
       home: "Home",
-      tech: "Tech",
       projects: "Projects",
-      blog: "Blog",
+      blog: "Blogs",
       contact: "Contact",
-      switchToVietnamese: "Switch to Vietnamese",
-      switchToEnglish: "Switch to English",
-      lightMode: "Light Mode",
-      darkMode: "Dark Mode",
-      switchToLight: "Switch to light theme",
-      switchToDark: "Switch to dark theme",
-      // Footer
-      copyright: "All rights reserved.",
-      designed: "Designed & Built with passion",
+
 
       // Intro
-      helloIm: "Hello, I'm",
-      myname: "TRAN TAN",
+      helloIm: "Hello! I'm",
+      myname: "TRAN TRONG TAN",
       location:
         "2004, Ben Tre, Vietnam | Studying at HUTECH University (2022 - Present)",
-      introDescription:
-        "I’m a final-year SOFTWARE ENGINEERING student with experience in .NET (1+ years) and Spring Boot (6 months), gained through academic team projects and personal applications. I have developed strong backend knowledge and have basic understanding of ERP, CRM, and FinTech domains, and I am eager to further improve my skills and become more proficient in .NET and Spring Boot.",
+      introDescription: (
+        <>
+          Creator of{" "}
+          <a
+            href="#"
+            className="font-semibold hover:underline text-pink-600 transition-colors"
+          >
+            Kairo
+          </a>{" "}
+          and co-creator of{" "}
+          <a
+            href="https://warmdrobe.rookwork.asia/"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold hover:underline text-pink-600 transition-colors"
+          >
+            Rookwork
+          </a>
+          . Final-year Software Engineering student, Linux user, and backend
+          developer focused on .NET and Spring Boot.
+        </>
+      ),
       goToGithub: "Go to GitHub",
       downloadCV: "Download CV",
       connect: "Connect",
       // About Me
-      aboutMe: "About me",
+
       abProjects: "Projects",
       abAwards: "Awards",
       abCertificates: "Certificates",
@@ -85,7 +73,7 @@ export const AppProvider = ({ children }) => {
       forStudentLearnCode: "for student learn code",
       viewDetails: "View Details",
       //blog
-      myBlog: "My Blog",
+      myBlog: "My Blogs",
       viewAllPosts: "View All Posts",
       readMore: "Read more",
       // Contact
@@ -131,8 +119,7 @@ export const AppProvider = ({ children }) => {
         "Displays error messages and basic debugging tools for troubleshooting",
       zeinIDEFeature4:
         "Runs seamlessly on both browser and desktop application versions",
-      zeinIDEFeature5: 
-        "Multiple theme options including dark and light modes",
+      zeinIDEFeature5: "Multiple theme options including dark and light modes",
       zeinIDEFeature6:
         "Integrated an AI assistant to support developers with coding guidance and problem-solving suggestions without directly generating code.",
       zeinIDESummary:
@@ -148,32 +135,44 @@ export const AppProvider = ({ children }) => {
     vi: {
       //Navbar
       home: "Trang chủ",
-      tech: "Công nghệ",
       projects: "Dự án",
       blog: "Blog",
       contact: "Liên hệ",
-      switchToVietnamese: "Chuyển sang tiếng Việt",
-      switchToEnglish: "Chuyển sang tiếng Anh",
-      lightMode: "Chế độ sáng",
-      darkMode: "Chế độ tối",
-      switchToLight: "Chuyển sang chế độ sáng",
-      switchToDark: "Chuyển sang chế độ tối",
-      // Footer
-      copyright: "Mọi quyền được bảo lưu.",
-      designed: "Thiết kế & Xây dựng bởi Trần Trọng Tấn",
+
 
       // Intro
-      helloIm: "Xin chào",
-      myname: "TRẦN TẤN",
+      helloIm: "Xin chào! mình là",
+      myname: "TRẦN TRỌNG TẤN",
       location:
         "2004, Bến Tre, Việt Nam | Đang học tại Đại học HUTECH (2022 - Hiện tại)",
-      introDescription:
-        "Tôi là sinh viên năm cuối ngành Kỹ thuật Phần mềm, có hơn 1 năm kinh nghiệm với .NET và 6 tháng với Spring Boot, tích lũy thông qua các dự án nhóm và dự án cá nhân trong quá trình học tập. Tôi có nền tảng vững về backend, hiểu biết cơ bản về các hệ thống ERP, CRM cũng như lĩnh vực FinTech, và mong muốn tiếp tục phát triển, nâng cao chuyên môn để thành thạo hơn nữa với .NET và Spring Boot.",
+      introDescription: (
+        <>
+          Sáng lập{" "}
+          <a
+            href="#"
+            className="font-semibold hover:underline text-pink-600 transition-colors"
+          >
+            Kairo
+          </a>{" "}
+          và đồng sáng lập{" "}
+          <a
+            href="https://warmdrobe.rookwork.asia/"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold hover:underline text-pink-600 transition-colors"
+          >
+            Rookwork
+          </a>
+          Sinh viên năm cuối ngành Kỹ thuật Phần mềm, sử dụng Linux làm hệ điều
+          hành chính và tập trung phát triển backend với .NET và Spring
+          Boot.{" "}
+        </>
+      ),
       goToGithub: "Đến GitHub",
       downloadCV: "Tải CV",
       connect: "Kết nối",
       // About Me
-      aboutMe: "Về tôi",
+
       abProjects: "Dự án",
       abAwards: "Giải thưởng",
       abCertificates: "Chứng chỉ",
@@ -214,7 +213,7 @@ export const AppProvider = ({ children }) => {
       zeinTeamPlannerFeature3:
         "Phân loại và hiển thị trạng thái công việc (Todo, In Progress, Done)",
       zeinTeamPlannerFeature4: "Quản lý thời hạn và ngày tạo",
-      zeinTeamPlannerFeature5: "Chế độ xem lịch để theo dõi Tasks và Events",
+      zeinTeamPlannerFeature5: "Chế độ xem lịch để theo dõi Tasks and Events",
       zeinTeamPlannerFeature6:
         "Dashboard tích hợp với biểu đồ và thông tin chi tiết",
       zeinTeamPlannerFeature7:
@@ -252,15 +251,17 @@ export const AppProvider = ({ children }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
   return (
     <AppContext.Provider
       value={{
         language,
-        theme,
         toggleLanguage,
-        toggleTheme,
         t,
         navigate: navigateToBlog,
+        isUnlocked,
+        setIsUnlocked,
       }}
     >
       {children}
