@@ -5,7 +5,8 @@ import {
   useLocation,
   Link,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 import { AppProvider, useApp } from "./context/AppContext";
 import HomeTabbedLayout from "./components/HomeTabbedLayout";
 import ZeinTeamPlanner from "./projects/ZeinTeamPlanner";
@@ -26,7 +27,7 @@ function ScrollToTop() {
 function SubPageHeader() {
   const { language, toggleLanguage } = useApp();
   return (
-    <header className="sticky top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 transition-all duration-300">
+    <header className="sticky top-0 left-0 right-0 h-16 bg-[#f6f4ee]/90 backdrop-blur-md z-50 border-b border-neutral-300/60 transition-all duration-300">
       <div className="max-w-5xl mx-auto w-full h-full flex items-center justify-between px-8">
         <Link
           to="/"
@@ -54,73 +55,131 @@ function SubPageHeader() {
 
 function AppContent() {
   const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
   const [activeTab, setActiveTab] = useState("home");
-  const { setIsUnlocked } = useApp();
+  const curtainRef = useRef(null);
+  const isFirstRender = useRef(true);
 
-  // Sync tab state from URL hash on load/hashchange
+  // Sync tab state from URL hash on load/hashchange based on displayLocation
   useEffect(() => {
-    const hash = location.hash.replace("#", "");
+    const hash = displayLocation.hash.replace("#", "");
     if (["home", "projects", "blog", "contact"].includes(hash)) {
       setActiveTab(hash);
     } else if (hash === "about" || hash === "aboutme") {
       setActiveTab("home");
-    } else if (location.pathname === "/" || location.pathname === "/home") {
+    } else if (displayLocation.pathname === "/" || displayLocation.pathname === "/home") {
       if (!hash) {
         setActiveTab("home");
       }
     }
-  }, [location]);
+  }, [displayLocation]);
 
+  const getRouteIndex = (path) => {
+    if (path === "/" || path === "/home") return 0;
+    if (path.includes("zein-teamplanner")) return 1;
+    if (path.includes("zein-ide")) return 2;
+    if (path.includes("hutech-ide")) return 3;
+    return 1;
+  };
+
+  // Synchronized GSAP Black Screen Curtain Wipe: changes DOM only when screen is 100% covered
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        setIsUnlocked(false);
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [setIsUnlocked]);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
-  const isSubPage = location.pathname !== "/" && location.pathname !== "/home";
+    if (location.pathname !== displayLocation.pathname) {
+      const prevIdx = getRouteIndex(displayLocation.pathname);
+      const currIdx = getRouteIndex(location.pathname);
+      // Direction: 1 = forward (wipe in from right), -1 = backward (wipe in from left)
+      const direction = currIdx >= prevIdx ? 1 : -1;
+
+      if (curtainRef.current) {
+        gsap.killTweensOf(curtainRef.current);
+        const tl = gsap.timeline();
+
+        // Step 1: Black curtain slides in and fully covers the old page
+        tl.fromTo(
+          curtainRef.current,
+          {
+            x: direction === 1 ? "100%" : "-100%",
+            display: "block",
+          },
+          {
+            x: "0%",
+            duration: 0.32,
+            ease: "power2.inOut",
+            onComplete: () => {
+              // Switch the rendered page and reset scroll ONLY when viewport is 100% black
+              setDisplayLocation(location);
+              window.scrollTo(0, 0);
+            },
+          }
+        )
+        // Step 2: Black curtain sweeps away to reveal the new page smoothly
+        .to(curtainRef.current, {
+          x: direction === 1 ? "-100%" : "100%",
+          duration: 0.32,
+          ease: "power2.inOut",
+          delay: 0.04,
+          onComplete: () => {
+            gsap.set(curtainRef.current, { display: "none" });
+          },
+        });
+      } else {
+        setDisplayLocation(location);
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [location, displayLocation.pathname]);
+
+  const isSubPage = displayLocation.pathname !== "/" && displayLocation.pathname !== "/home";
 
   return (
     <>
       <ScrollToTop />
       {/* Dynamic Background Radial Gradients */}
-      <div className="fixed -z-10 min-h-screen w-full transition-colors duration-300 bg-neutral-50 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]"></div>
+      <div className="fixed -z-10 min-h-screen w-full transition-colors duration-300 bg-[#f6f4ee] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.08),rgba(246,244,238,0))]"></div>
+
+      {/* Fullscreen Black Curtain Overlay for GSAP Page Transition */}
+      <div
+        ref={curtainRef}
+        className="fixed inset-0 bg-black z-[99999] pointer-events-none hidden"
+      />
 
       {/* Subpage Sticky Header */}
       {isSubPage && <SubPageHeader />}
 
       {/* Main Content Area */}
-      <div className="w-full min-h-screen flex flex-col justify-between transition-all duration-300">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomeTabbedLayout
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <HomeTabbedLayout
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            }
-          />
+      <div className="w-full min-h-screen flex flex-col justify-between overflow-x-hidden">
+        <div className="w-full flex-1 flex flex-col">
+          <Routes location={displayLocation}>
+            <Route
+              path="/"
+              element={
+                <HomeTabbedLayout
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <HomeTabbedLayout
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              }
+            />
 
-          {/* Projects Detail Pages */}
-          <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
-          <Route path="/home/zein-ide" element={<ZeinIDE />} />
-          <Route path="/home/hutech-ide" element={<HutechIDE />} />
-        </Routes>
+            {/* Projects Detail Pages */}
+            <Route path="/home/zein-teamplanner" element={<ZeinTeamPlanner />} />
+            <Route path="/home/zein-ide" element={<ZeinIDE />} />
+            <Route path="/home/hutech-ide" element={<HutechIDE />} />
+          </Routes>
+        </div>
       </div>
     </>
   );

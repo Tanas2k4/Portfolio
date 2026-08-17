@@ -52,7 +52,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="w-full py-4 bg-white"
+      className="w-full py-4 bg-transparent"
       style={{
         fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
       }}
@@ -135,7 +135,9 @@ const Contact = () => {
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full flex items-center justify-center gap-2 border border-black text-black hover:border-black hover:text-white relative overflow-hidden z-1 before:absolute before:bottom-0 before:right-0 before:w-0 before:h-0 before:bg-black before:rounded-full before:transition-all before:duration-500 hover:before:scale-[800%] before:-z-1 hover:before:w-10 hover:before:h-10 px-6 py-4 rounded-none text-sm font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                variant="primary"
+                size="lg"
+                className="w-full"
               >
                 {status === "loading" && <span>{language === "en" ? "Sending..." : "Đang gửi..."}</span>}
                 {status === "success" && <span className="text-green-600 flex items-center gap-1.5"><FaCheckCircle />{language === "en" ? "Message sent!" : "Đã gửi thành công!"}</span>}
@@ -147,7 +149,7 @@ const Contact = () => {
         </div>
 
         {/* Grayscale map below - Centered at Thu Duc, Ho Chi Minh City */}
-        <div className="mt-16 w-full h-80 rounded-none overflow-hidden shadow-sm ">
+        <div className="mt-16 w-full h-80 rounded-none overflow-hidden border border-neutral-300/70">
           <iframe
             title="Google Maps Location"
             className="w-full h-full grayscale border-0 opacity-80"

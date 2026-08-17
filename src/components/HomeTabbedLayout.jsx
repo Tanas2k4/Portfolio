@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { PiBuildingsFill } from "react-icons/pi";
@@ -15,16 +14,6 @@ function HomeTabbedLayout({ activeTab, setActiveTab }) {
   const { language, toggleLanguage, t } = useApp();
   const [parent] = useAutoAnimate();
   const [navParent] = useAutoAnimate();
-  const [isBlinking, setIsBlinking] = useState(false);
-
-  useEffect(() => {
-    const handleBlink = () => {
-      setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 1800); // 6 blinks of 0.3s = 1.8s
-    };
-    window.addEventListener("trigger-password-hint", handleBlink);
-    return () => window.removeEventListener("trigger-password-hint", handleBlink);
-  }, []);
 
   const navLinks = [
     { key: "home", label: t.home },
@@ -39,7 +28,7 @@ function HomeTabbedLayout({ activeTab, setActiveTab }) {
   };
 
   return (
-    <div className="w-full bg-white min-h-screen flex flex-col transition-all duration-300">
+    <div className="w-full bg-[#f6f4ee] min-h-screen flex flex-col transition-all duration-300">
       {/* Full-width Banner Image spanning 100% of viewport */}
       <div className="w-full h-52 relative overflow-hidden">
         <img
@@ -59,7 +48,7 @@ function HomeTabbedLayout({ activeTab, setActiveTab }) {
       {/* Centered Content Wrapper (Cozy centering like the image) */}
       <div className="w-full max-w-4xl mx-auto px-6 md:px-8 flex-1 flex flex-col">
         {/* Header section with Avatar, Name, Title, and Navigation Tabs */}
-        <div className="w-full relative pb-6 border-b border-neutral-100 bg-white">
+        <div className="w-full relative pb-6 border-b border-neutral-300/60 bg-[#f6f4ee]">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 pt-2">
             <div>
               <div className="flex items-end gap-4">
@@ -83,7 +72,7 @@ function HomeTabbedLayout({ activeTab, setActiveTab }) {
                       href="https://www.github.com/warmdrobe"
                       target="_blank"
                       rel="noreferrer"
-                      className={`text-[13px] text-emerald-600 font-medium transition-colors ${isBlinking ? "animate-blink-hint" : ""}`}
+                      className="text-[13px] text-emerald-600 font-medium transition-colors hover:underline"
                     >
                       @Warmdrobe
                     </a>
@@ -119,7 +108,7 @@ function HomeTabbedLayout({ activeTab, setActiveTab }) {
         </div>
 
         {/* Active Component Render Area */}
-        <div className="py-3 flex-1 bg-white" ref={parent}>
+        <div className="py-3 flex-1 bg-transparent" ref={parent}>
           {activeTab === "home" && (
             <div className="space-y-2">
               <Intro setActiveTab={setActiveTab} />

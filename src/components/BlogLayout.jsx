@@ -53,7 +53,7 @@ const BlogLayout = ({
 
   return (
     <article
-      className="min-h-screen py-8 md:py-20 px-4 md:px-6 text-neutral-800 bg-white"
+      className="min-h-screen py-8 md:py-20 px-4 md:px-6 text-neutral-800 bg-[#f6f4ee]"
       style={{
         fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
       }}
@@ -64,7 +64,7 @@ const BlogLayout = ({
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-24">
               <div className="p-4">
-                <h3 className="font-semibold mb-4 text-sm uppercase tracking-wide text-neutral-400">
+                <h3 className="font-semibold mb-4 text-sm text-neutral-400">
                   {language === "en" ? "Contents" : "Mục lục"}
                 </h3>
                 <nav className="space-y-1">
@@ -111,7 +111,7 @@ const BlogLayout = ({
 
           {/* Optional Hero/Banner Image */}
           {heroImage && (
-            <div className="mb-12 rounded-2xl overflow-hidden shadow-xl">
+            <div className="mb-12 rounded-none overflow-hidden border border-neutral-300/70">
               <img
                 src={heroImage}
                 alt={title}
@@ -136,7 +136,7 @@ const BlogLayout = ({
                   <button
                     key={idx}
                     onClick={() => handleNavigate(article.slug)}
-                    className={`text-left p-6 rounded-xl transition border bg-white border-gray-200 hover:shadow-lg cursor-pointer ${
+                    className={`text-left p-6 rounded-none transition border bg-white border-gray-200 cursor-pointer ${
                       article.hoverColor || "hover:border-black"
                     }`}
                   >

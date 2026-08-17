@@ -106,7 +106,7 @@ const Blog = () => {
     return (
       <section
         id="blog-detail"
-        className="w-full py-4 bg-white"
+        className="w-full py-4 bg-transparent"
         style={{
           fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
         }}
@@ -176,7 +176,7 @@ const Blog = () => {
                   href={activePost.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-500 hover:text-black transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500 hover:text-black transition-colors"
                 >
                   <span>{language === "en" ? "View original on Dev.to" : "Xem bài viết gốc trên Dev.to"}</span>
                   <BiLinkExternal />
@@ -193,7 +193,7 @@ const Blog = () => {
   return (
     <section
       id="blog"
-      className="w-full py-4 bg-white"
+      className="w-full py-4 bg-transparent"
       style={{
         fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
       }}
@@ -211,7 +211,7 @@ const Blog = () => {
           {finalBlogsList.length > 3 && (
             <Button
               onClick={() => setIsExpanded(!isExpanded)}
-              variant="secondary"
+              variant="primary"
               className="mt-6 md:mt-0"
             >
               <span>
@@ -268,7 +268,7 @@ const Blog = () => {
                 </div>
 
                 {/* Read Article Action */}
-                <div className="pt-4 mt-6 border-t border-dashed border-neutral-200 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-black group-hover:underline">
+                <div className="pt-4 mt-6 border-t border-dashed border-neutral-200 flex items-center gap-1.5 text-xs font-semibold text-black group-hover:underline">
                   <span>{language === "en" ? "Read Article" : "Đọc bài viết"}</span>
                   <BiRightArrowAlt size={16} />
                 </div>

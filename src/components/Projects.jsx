@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { BiLinkExternal, BiCodeAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -8,61 +7,11 @@ import zeinIdeImg from "../assets/zein-ide.png";
 import hutechIdeImg from "../assets/hutech-ide.png";
 import picsocailApi from "../assets/picSocialApi.png";
 
-const getTechStyle = (tech) => {
-  const norm = tech.toLowerCase().trim();
-  if (norm.includes("asp.net") || norm === ".net") {
-    return "bg-purple-50 text-purple-800 border-purple-200 font-semibold";
-  }
-  if (norm.includes("sql server")) {
-    return "bg-blue-50 text-blue-800 border-blue-250 font-semibold";
-  }
-  if (norm === "ef core" || norm.includes("entity framework")) {
-    return "bg-fuchsia-50 text-fuchsia-800 border-fuchsia-200 font-semibold";
-  }
-  if (norm.includes("jwt")) {
-    return "bg-amber-50 text-amber-900 border-amber-250 font-semibold";
-  }
-  if (norm.includes("bootstrap")) {
-    return "bg-indigo-50 text-indigo-850 border-indigo-250 font-semibold";
-  }
-  if (norm.includes("signalr")) {
-    return "bg-rose-50 text-rose-800 border-rose-250 font-semibold";
-  }
-  if (norm.includes("typescript") || norm === "ts") {
-    return "bg-sky-50 text-sky-850 border-sky-250 font-semibold";
-  }
-  if (norm.includes("tailwindcss") || norm === "tailwind") {
-    return "bg-teal-50 text-teal-850 border-teal-250 font-semibold";
-  }
-  if (norm.includes("node")) {
-    return "bg-emerald-50 text-emerald-850 border-emerald-250 font-semibold";
-  }
-  if (norm.includes("theia")) {
-    return "bg-orange-50 text-orange-850 border-orange-250 font-semibold";
-  }
-  if (norm.includes("electron")) {
-    return "bg-cyan-50 text-cyan-850 border-cyan-250 font-semibold";
-  }
-  return "bg-neutral-50 text-neutral-850 border-neutral-200 font-semibold";
-};
+import { getTechStyle } from "../utils/techStyles";
 
 const Projects = () => {
-  const { language, t, isUnlocked, setIsUnlocked } = useApp();
+  const { language, t } = useApp();
   const [parent] = useAutoAnimate();
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const handleUnlock = (e) => {
-    e.preventDefault();
-    if (password === "@Warmdrobe") {
-      setIsUnlocked(true);
-      setError("");
-    } else {
-      setError(
-        language === "en" ? "Incorrect password!" : "Sai mật khẩu rồi! =))",
-      );
-    }
-  };
 
   const projectsData = [
     {
@@ -129,62 +78,10 @@ const Projects = () => {
     },
   ];
 
-  if (!isUnlocked) {
-    return (
-      <section
-        id="projects"
-        className="w-full py-4 flex flex-col items-center justify-center "
-        style={{
-          fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
-        }}
-      >
-        <div className="w-full max-w-sm border border-neutral-500 p-8 bg-white/50 backdrop-blur-md">
-          <h2 className="text-xl font-bold mb-3 tracking-tight text-center text-neutral-900">
-            {language === "en" ? "I'm keeping it here for now" : "Tạm thời tui đang cất"}
-          </h2>
-          <p
-            onClick={() => window.dispatchEvent(new CustomEvent("trigger-password-hint"))}
-            className="text-xs text-neutral-500 mb-6 text-center leading-relaxed cursor-pointer hover:text-black transition-colors select-none"
-            title={language === "en" ? "Click to get a hint!" : "Click để xem gợi ý!"}
-          >
-            {language === "en"
-              ? "If you'd like to take a look, I've left the password above."
-              : "Bạn muốn xem thì tôi có để mật khẩu ở trên."}
-          </p>
-          <form onSubmit={handleUnlock} className="space-y-4">
-            <div>
-              <input
-                type="password"
-                placeholder={
-                  language === "en" ? "Enter password" : "Nhập mật khẩu..."
-                }
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-350 rounded-none text-xs focus:outline-none focus:border-black font-mono text-center"
-                autoFocus
-              />
-            </div>
-            {error && (
-              <p className="text-[11px] text-red-500 text-center font-medium font-mono">
-                {error}
-              </p>
-            )}
-            <button
-              type="submit"
-              className="w-full py-2 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-colors cursor-pointer rounded-none"
-            >
-              {language === "en" ? "Unlock" : "Mở khóa"}
-            </button>
-          </form>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section
       id="projects"
-      className="w-full py-4 bg-white"
+      className="w-full py-4 bg-transparent"
       style={{
         fontFamily: language === "vi" ? "Inter, sans-serif" : "inherit",
       }}
@@ -196,7 +93,7 @@ const Projects = () => {
             {projectsData.map((project) => (
               <div
                 key={project.title}
-                className="group flex flex-col md:flex-row gap-6 p-4 border border-neutral-200/60 bg-white transition-all duration-350 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                className="group flex flex-col md:flex-row gap-6 p-4 border border-neutral-200/60 bg-white transition-all duration-350 hover:border-neutral-400"
               >
                 {/* Thumbnail Box */}
                 <div className="relative w-full md:w-48 aspect-video md:aspect-auto md:h-28 overflow-hidden bg-neutral-105 border border-neutral-200 flex-shrink-0">
@@ -205,7 +102,7 @@ const Projects = () => {
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-none text-[9px] font-semibold uppercase tracking-wider text-white">
+                  <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-none text-[10px] font-medium text-white">
                     {project.categoryLabel}
                   </div>
 
@@ -264,7 +161,7 @@ const Projects = () => {
                           href={project.link}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider hover:underline"
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-800 hover:text-black hover:underline"
                         >
                           <span>{t.viewDetails}</span>
                           <BiLinkExternal />
@@ -272,7 +169,7 @@ const Projects = () => {
                       ) : (
                         <Link
                           to={project.link}
-                          className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider hover:underline"
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-800 hover:text-black hover:underline"
                         >
                           <span>{t.viewDetails}</span>
                           <BiLinkExternal />

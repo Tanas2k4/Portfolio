@@ -9,12 +9,12 @@
 
 @layer base {
   :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-card: #ffffff;
-    --text-primary: #000000;
-    --text-secondary: #4b5563;
-    --border-primary: #e5e7eb;
+    --bg-primary: #f6f4ee;
+    --bg-secondary: #eeeae0;
+    --bg-card: #fdfcf9;
+    --text-primary: #171717;
+    --text-secondary: #525252;
+    --border-primary: #e5e0d3;
     --accent-color: #000000;
   }
 }
@@ -179,13 +179,57 @@
   margin-bottom: 1.25em !important;
 }
 
-/* Custom animation for password hint blinking */
-@keyframes blink-hint {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.2; transform: scale(1.1); color: #ef4444; }
+/* Animated Button Ripple Effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #000000;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.8s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-blink-hint {
-  animation: blink-hint 0.3s ease-in-out 6;
-  display: inline-block; /* Ensure transform works */
+.btn-ripple::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 350%;
+  padding-bottom: 350%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
 }
+
+.btn-ripple:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-ripple-dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-ripple-dark::before {
+  background-color: #ffffff;
+}
+
+.btn-ripple-dark:hover {
+  color: #000000;
+}
+
+.btn-ripple-light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-ripple-light::before {
+  background-color: #000000;
+}
+
+.btn-ripple-light:hover {
+  color: #ffffff;
+}
+

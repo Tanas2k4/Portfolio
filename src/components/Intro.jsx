@@ -156,7 +156,7 @@ const Intro = ({ setActiveTab }) => {
             />
 
             {/* Modal popup */}
-            <div className="fixed z-[110] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-3xl max-h-[85vh] overflow-y-auto rounded-none shadow-2xl p-6 sm:p-8 bg-white text-black">
+            <div className="fixed z-[110] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-3xl max-h-[85vh] overflow-y-auto rounded-none border border-neutral-400 p-6 sm:p-8 bg-white text-black">
               {/* Header / Close */}
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">

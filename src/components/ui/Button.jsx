@@ -5,31 +5,43 @@ const Button = ({
   children,
   href,
   onClick,
-  variant = "primary", // primary | secondary
+  variant = "primary", // primary (dark: black -> white) | secondary (light: white -> black)
+  size = "md", // sm | md | lg
   download = false,
   target,
   rel,
   className = "",
   type = "button",
+  disabled = false,
   ...props
 }) => {
   const baseStyle =
-    "inline-flex items-center justify-center gap-2.5 border px-7.5 py-4 leading-normal rounded-none transition-colors duration-[1200ms] ease-in-out relative overflow-hidden z-1 before:absolute before:-bottom-5 before:-right-5 before:w-10 before:h-10 before:rounded-full before:scale-0 before:transition-transform before:duration-[1200ms] before:ease-in-out before:-z-1 before:origin-center hover:before:scale-[60] text-sm font-semibold cursor-pointer select-none";
+    "btn-ripple inline-flex items-center justify-center rounded-none disabled:opacity-50 disabled:cursor-not-allowed";
 
-  const variants = {
-    primary:
-      "bg-powerBlack text-white border-powerBlack hover:text-powerBlack before:bg-white",
-    secondary:
-      "bg-transparent text-powerBlack border-powerBlack hover:text-white before:bg-powerBlack",
+  const sizes = {
+    sm: "px-4 py-2 text-xs font-medium",
+    md: "px-6 py-3 text-sm font-medium",
+    lg: "px-7.5 py-3.5 text-sm font-medium",
   };
 
-  const fullStyle = `${baseStyle} ${variants[variant]} ${className}`;
+  const variants = {
+    primary: "btn-ripple-dark",
+    secondary: "btn-ripple-light",
+  };
+
+  const fullStyle = `${baseStyle} ${sizes[size] || sizes.md} ${variants[variant] || variants.primary} ${className}`;
+
+  const content = (
+    <span className="relative z-10 inline-flex items-center justify-center gap-2 pointer-events-none w-full">
+      {children}
+    </span>
+  );
 
   // If internal routing link
   if (href && href.startsWith("/")) {
     return (
       <Link to={href} className={fullStyle} {...props}>
-        {children}
+        {content}
       </Link>
     );
   }
@@ -45,15 +57,21 @@ const Button = ({
         rel={rel}
         {...props}
       >
-        {children}
+        {content}
       </a>
     );
   }
 
   // Otherwise regular button
   return (
-    <button type={type} onClick={onClick} className={fullStyle} {...props}>
-      {children}
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={fullStyle}
+      {...props}
+    >
+      {content}
     </button>
   );
 };

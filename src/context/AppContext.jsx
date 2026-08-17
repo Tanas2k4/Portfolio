@@ -253,8 +253,6 @@ export const AppProvider = ({ children }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const [isUnlocked, setIsUnlocked] = useState(false);
-
   return (
     <AppContext.Provider
       value={{
@@ -262,8 +260,6 @@ export const AppProvider = ({ children }) => {
         toggleLanguage,
         t,
         navigate: navigateToBlog,
-        isUnlocked,
-        setIsUnlocked,
       }}
     >
       {children}
