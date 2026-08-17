@@ -29,7 +29,6 @@ export const AppProvider = ({ children }) => {
       blog: "Blogs",
       contact: "Contact",
 
-
       // Intro
       helloIm: "Hello! I'm",
       myname: "TRAN TRONG TAN",
@@ -39,7 +38,9 @@ export const AppProvider = ({ children }) => {
         <>
           Creator of{" "}
           <a
-            href="#"
+            href="https://kairo.tanas2k4.dev/"
+            target="_blank"
+            rel="noreferrer"
             className="font-semibold hover:underline text-pink-600 transition-colors"
           >
             Kairo
@@ -139,7 +140,6 @@ export const AppProvider = ({ children }) => {
       blog: "Blog",
       contact: "Liên hệ",
 
-
       // Intro
       helloIm: "Xin chào! mình là",
       myname: "TRẦN TRỌNG TẤN",
@@ -149,7 +149,9 @@ export const AppProvider = ({ children }) => {
         <>
           Sáng lập{" "}
           <a
-            href="#"
+            href="https://kairo.tanas2k4.dev/"
+            target="_blank"
+            rel="noreferrer"
             className="font-semibold hover:underline text-pink-600 transition-colors"
           >
             Kairo
